@@ -1,0 +1,17 @@
+﻿<Application x:Class="Teretana.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Teretana"
+             StartupUri="MainWindow.xaml">
+    
+    <Application.Resources>
+        <Style x:Key="GymNameLabel" TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Algerian"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Content" Value="GYM NAME"/>
+        </Style>
+    </Application.Resources>
+</Application>
