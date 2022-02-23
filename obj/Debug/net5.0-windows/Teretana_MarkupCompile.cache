@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\
+C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\
 Teretana
 none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
-C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\App.xaml
-11407045341
+C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\App.xaml
+31218009477
 
-3-1233169557
-193-1891726104
-MainWindow.xaml;
+6137805075
+1941039429880
+AdminWindow.xaml;EmployeeWindow.xaml;LoginWindow.xaml;
 
 False
 

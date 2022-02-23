@@ -9,13 +9,21 @@
 
   <ItemGroup>
     <None Remove="assets\background.png" />
+    <None Remove="assets\logo.png" />
     <None Remove="assets\password.png" />
     <None Remove="assets\person.png" />
     <None Remove="prototype.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySqlConnector" Version="2.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="assets\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="assets\password.png">
