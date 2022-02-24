@@ -12,6 +12,7 @@
     <None Remove="assets\logo.png" />
     <None Remove="assets\password.png" />
     <None Remove="assets\person.png" />
+    <None Remove="avatar.png" />
     <None Remove="prototype.jpg" />
   </ItemGroup>
 
@@ -32,6 +33,7 @@
     <Resource Include="assets\person.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="avatar.png" />
     <Resource Include="prototype.jpg" />
   </ItemGroup>
 
