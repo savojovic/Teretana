@@ -12,5 +12,6 @@ namespace Teretana
         public static string DB_USERNAME = "root";
         public static string DB_PASSWORD = "admin";
         public static string DB_NAME = "Teretana";
+        public static string dbConfigString = $"server={Config.DB_SERVER};userid={Config.DB_USERNAME};password={Config.DB_PASSWORD};database={Config.DB_NAME}";
     }
 }

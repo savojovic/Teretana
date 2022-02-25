@@ -8,9 +8,16 @@
         Title="EmployeeWindow" Height="650" Width="1000">
     <Grid >
 
-        <ListBox  Margin="10,78,790,78">
-
-        </ListBox>
+        <ListView  x:Name="membersListBox" Margin="10,78,790,78" SelectionChanged="membersListBox_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}"/>
+                    <GridViewColumn Header="Date Time" DisplayMemberBinding="{Binding DateTime}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <GroupBox Header="Member&#xD;&#xA;" Margin="215,71,10,78">
 
             <Grid Margin="12,0,-12,0">
@@ -18,17 +25,17 @@
                 <GroupBox Header="Info" Margin="0,170,435,0">
                     <Grid Margin="0,30,0,-5" Height="220">
                         <Label Content="Name" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Margin="116,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <TextBox HorizontalAlignment="Left" Margin="116,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="nameTextBox"/>
                         <Label Content="Surname" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Margin="116,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <TextBox HorizontalAlignment="Left" Margin="116,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="surnameTextBox"/>
                         <Label Content="Date of birth" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.718,-0.283"/>
-                        <DatePicker HorizontalAlignment="Left" Margin="116,61,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+                        <DatePicker HorizontalAlignment="Left" Margin="116,61,0,0" VerticalAlignment="Top" Width="120" Height="26" x:Name="datePicker" />
                         <Label Content="JMBG" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Margin="116,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <TextBox HorizontalAlignment="Left" Margin="116,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="jmbgTextBox"/>
                         <Label Content="City" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top"/>
                         <ComboBox HorizontalAlignment="Left" Margin="116,125,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
                         <Label Content="Email" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
-                        <TextBox HorizontalAlignment="Left" Margin="116,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <TextBox HorizontalAlignment="Left" Margin="116,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="emailTextBox"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox Header="Trainings" Margin="382,170,15,0">
@@ -75,8 +82,9 @@
         </GroupBox>
         <Label Content="Members:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
         <Button Content="ADD" HorizontalAlignment="Left" Margin="215,46,0,0" VerticalAlignment="Top" Width="54"/>
-        <Button Content="EDIT" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button Content="EDIT" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54" Click="EditButton_Click" x:Name="editBtn"/>
         <Button Content="DELETE" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54"/>
         <Button Content="LOGOUT" HorizontalAlignment="Left" Margin="920,46,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button Content="SAVE" HorizontalAlignment="Left" Margin="392,46,0,0" VerticalAlignment="Top" Width="54" Height="20" x:Name="saveBtn" Click="saveBtn_Click"/>
     </Grid>
 </Window>

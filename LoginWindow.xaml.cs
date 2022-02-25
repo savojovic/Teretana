@@ -25,8 +25,8 @@ namespace Teretana
         string noEmptyFields = "You must enter your Username and Password!";
         string wrnogCredentials = "Username and password do not match!";
 
-        static string dbConfigString = $"server={Config.DB_SERVER};userid={Config.DB_USERNAME};password={Config.DB_PASSWORD};database={Config.DB_NAME}";
-        MySqlConnection teretanaDB = new MySqlConnection(dbConfigString);
+        
+        MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
         
         public LoginWindow()
         {
