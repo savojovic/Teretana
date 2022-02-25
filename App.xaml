@@ -3,15 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Teretana"
              StartupUri="LoginWindow.xaml">
-    
+
     <Application.Resources>
+        <FontFamily x:Key="SFSports">./fonts/#SF Sports Night Upright</FontFamily>
+
         <Style x:Key="GymNameLabel" TargetType="Label">
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontFamily" Value="Algerian"/>
-            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="FontFamily" Value="{DynamicResource SFSports}"/>
+            <Setter Property="FontSize" Value="35"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Content" Value="GYM NAME"/>
+            <Setter Property="Content" Value="POWER GYM"/>
         </Style>
     </Application.Resources>
 </Application>

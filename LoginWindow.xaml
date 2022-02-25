@@ -14,7 +14,7 @@
         <Image Source="/assets/logo.png" HorizontalAlignment="Left" Height="201" Margin="99,124,0,0" VerticalAlignment="Top" Width="245" RenderTransformOrigin="0.48,0.202"/>
 
         <Label Margin="0,10,0,0" Style="{StaticResource GymNameLabel}" />
-        <Label Content="WELCOME" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="543,77,0,0" RenderTransformOrigin="0.848,0.13" FontSize="30" FontFamily="Algerian" FontWeight="Bold"  />
+        <Label Content="WELCOME" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="543,77,0,0" RenderTransformOrigin="0.848,0.13" FontSize="30" FontFamily="{StaticResource SFSports}" FontWeight="Bold"  />
 
         <Border BorderBrush="Black"
             BorderThickness="2"
