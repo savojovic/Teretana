@@ -12,6 +12,7 @@
     <None Remove="assets\logo.png" />
     <None Remove="assets\password.png" />
     <None Remove="assets\person.png" />
+<<<<<<< HEAD
     <None Remove="fonts\SFSportsNight.ttf" />
     <None Remove="fonts\SFSportsNightAlternate.ttf" />
     <None Remove="fonts\SFSportsNightAltUpright.ttf" />
@@ -20,6 +21,9 @@
     <None Remove="fonts\SFSportsNightNSAltUpright.ttf" />
     <None Remove="fonts\SFSportsNightNSUpright.ttf" />
     <None Remove="fonts\SFSportsNightUpright.ttf" />
+=======
+    <None Remove="avatar.png" />
+>>>>>>> c9c597913bd0dcda6400e25fd1af2f92a08b098e
     <None Remove="prototype.jpg" />
   </ItemGroup>
 
@@ -40,6 +44,7 @@
     <Resource Include="assets\person.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+<<<<<<< HEAD
     <Resource Include="fonts\SFSportsNight.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
@@ -64,6 +69,9 @@
     <Resource Include="fonts\SFSportsNightUpright.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+=======
+    <Resource Include="avatar.png" />
+>>>>>>> c9c597913bd0dcda6400e25fd1af2f92a08b098e
     <Resource Include="prototype.jpg" />
   </ItemGroup>
 

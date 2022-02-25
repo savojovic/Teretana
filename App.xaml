@@ -2,7 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Teretana"
+<<<<<<< HEAD
              StartupUri="LoginWindow.xaml">
+=======
+             StartupUri="EmployeeWindow.xaml">
+>>>>>>> c9c597913bd0dcda6400e25fd1af2f92a08b098e
 
     <Application.Resources>
         <FontFamily x:Key="SFSports">./fonts/#SF Sports Night Upright</FontFamily>

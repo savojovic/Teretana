@@ -5,9 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Teretana"
         mc:Ignorable="d"
-        Title="EmployeeWindow" Height="450" Width="800">
-    <Grid>
-        <Label Content="Employee Window" HorizontalAlignment="Left" Margin="185,98,0,0" VerticalAlignment="Top"/>
+        Title="EmployeeWindow" Height="650" Width="1000">
+    <Grid >
 
+        <ListBox  Margin="10,78,790,78">
+
+        </ListBox>
+        <GroupBox Header="Member&#xD;&#xA;" Margin="215,71,10,78">
+
+            <Grid Margin="12,0,-12,0">
+
+                <GroupBox Header="Info" Margin="0,170,435,0">
+                    <Grid Margin="0,30,0,-5" Height="220">
+                        <Label Content="Name" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
+                        <TextBox HorizontalAlignment="Left" Margin="116,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <Label Content="Surname" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top"/>
+                        <TextBox HorizontalAlignment="Left" Margin="116,32,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <Label Content="Date of birth" HorizontalAlignment="Left" Margin="10,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.718,-0.283"/>
+                        <DatePicker HorizontalAlignment="Left" Margin="116,61,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+                        <Label Content="JMBG" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top"/>
+                        <TextBox HorizontalAlignment="Left" Margin="116,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <Label Content="City" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top"/>
+                        <ComboBox HorizontalAlignment="Left" Margin="116,125,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+                        <Label Content="Email" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
+                        <TextBox HorizontalAlignment="Left" Margin="116,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Trainings" Margin="382,170,15,0">
+                    <Grid Height="237">
+                        <ListView x:Name="trainings" Margin="0,0,0,39">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Datum}" Width="100"/>
+                                    <GridViewColumn Header="From" DisplayMemberBinding="{Binding Od}" Width="100"/>
+                                    <GridViewColumn Header="Until" DisplayMemberBinding="{Binding Do}" Width="100"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Content="START" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54"/>
+                        <Button Content="STOP" HorizontalAlignment="Left" Margin="177,201,0,0" VerticalAlignment="Top" Width="54"/>
+                        <Label Content="Start a new training" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="Membership&#xD;&#xA;" Margin="382,6,15,285">
+                    <Grid Margin="0,0,8,0">
+                        <Label Content="Paid at:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Label Content="Valid until:" HorizontalAlignment="Left" Margin="0,26,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Days left:" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top"/>
+                        <GroupBox Margin="237,0,0,0">
+                            <Grid Height="114" Margin="0,0,9,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Button Content="NEW" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54" Margin="10,10,0,0"/>
+                                <Button Content="EXTEND" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="54" Margin="10,37,0,0"/>
+                                <Button Content="REVOKE" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="54" Margin="10,5,0,0" Grid.Row="1" RenderTransformOrigin="1.037,0.561"/>
+                            </Grid>
+                        </GroupBox>
+
+                    </Grid>
+                </GroupBox>
+                <Image HorizontalAlignment="Left" Height="147" Margin="90,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
+                <Button Content="···" HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Width="34"/>
+
+
+            </Grid>
+
+        </GroupBox>
+        <Label Content="Members:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+        <Button Content="ADD" HorizontalAlignment="Left" Margin="215,46,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button Content="EDIT" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button Content="DELETE" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button Content="LOGOUT" HorizontalAlignment="Left" Margin="920,46,0,0" VerticalAlignment="Top" Width="54"/>
     </Grid>
 </Window>

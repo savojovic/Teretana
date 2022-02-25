@@ -1,6 +1,13 @@
 ﻿
+<<<<<<< HEAD
 FC:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\App.xaml;;
 FC:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\AdminWindow.xaml;;
 FC:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\EmployeeWindow.xaml;;
 FC:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\LoginWindow.xaml;;
+=======
+FC:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\App.xaml;;
+FC:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\AdminWindow.xaml;;
+FC:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\EmployeeWindow.xaml;;
+FC:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\LoginWindow.xaml;;
+>>>>>>> c9c597913bd0dcda6400e25fd1af2f92a08b098e
 
