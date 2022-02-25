@@ -37,6 +37,7 @@
         <Border BorderBrush="Black"
             BorderThickness="2"
             VerticalAlignment="Top"
+            Background="White"
             CornerRadius="5" Margin="512,237,61,0">
 
             <StackPanel Margin="5"
@@ -44,7 +45,7 @@
 
                 <Image Source="/assets/password.png" 
                     Height="18"/>
-                <PasswordBox x:Name="passwordBox" Background="Transparent"
+                <PasswordBox x:Name="passwordBox" 
                              KeyDown="credentialsBox_KeyDown"
                     Margin="3 0 0 0" Width="190" BorderThickness="0"/>
             </StackPanel>
