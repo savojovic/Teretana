@@ -13,6 +13,14 @@
     <None Remove="assets\password.png" />
     <None Remove="assets\person.png" />
     <None Remove="avatar.png" />
+    <None Remove="fonts\SFSportsNight.ttf" />
+    <None Remove="fonts\SFSportsNightAlternate.ttf" />
+    <None Remove="fonts\SFSportsNightAltUpright.ttf" />
+    <None Remove="fonts\SFSportsNightNS.ttf" />
+    <None Remove="fonts\SFSportsNightNSAlternate.ttf" />
+    <None Remove="fonts\SFSportsNightNSAltUpright.ttf" />
+    <None Remove="fonts\SFSportsNightNSUpright.ttf" />
+    <None Remove="fonts\SFSportsNightUpright.ttf" />
     <None Remove="prototype.jpg" />
   </ItemGroup>
 
@@ -34,6 +42,30 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="avatar.png" />
+    <Resource Include="fonts\SFSportsNight.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\SFSportsNightAlternate.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\SFSportsNightAltUpright.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\SFSportsNightNS.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\SFSportsNightNSAlternate.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\SFSportsNightNSAltUpright.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\SFSportsNightNSUpright.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="fonts\SFSportsNightUpright.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="prototype.jpg" />
   </ItemGroup>
 

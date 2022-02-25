@@ -5,13 +5,10 @@ C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\bin\Debug\net5.0-windo
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\bin\Debug\net5.0-windows\Teretana.dll
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\bin\Debug\net5.0-windows\ref\Teretana.dll
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\bin\Debug\net5.0-windows\Teretana.pdb
-C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana.csproj.AssemblyReference.cache
-C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\MainWindow.g.cs
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\App.g.cs
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana_MarkupCompile.cache
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana_MarkupCompile.lref
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\App.baml
-C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\MainWindow.baml
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana.g.resources
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana.AssemblyInfoInputs.cache
@@ -50,3 +47,12 @@ C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Deb
 C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\EmployeeWindow.g.cs
 C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\AdminWindow.baml
 C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\EmployeeWindow.baml
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\bin\Debug\net5.0-windows\MySqlConnector.dll
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\AdminWindow.g.cs
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\EmployeeWindow.g.cs
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\LoginWindow.g.cs
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\AdminWindow.baml
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\EmployeeWindow.baml
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\LoginWindow.baml
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana.csproj.CopyComplete
+C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana.csproj.AssemblyReference.cache
