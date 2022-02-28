@@ -58,13 +58,58 @@ namespace Teretana
             {
                 members.Add(new BasicMemberInfo(reader.GetInt32(0),reader.GetString(1), reader.GetString(2), reader.GetDateTime(3)));
             }
-            membersListBox.ItemsSource = members;
+            membersListView.ItemsSource = members;
             teretanaDB.Close();
         }
 
         private void membersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListView? listView = sender as ListView;
+            int id = ((BasicMemberInfo)(sender as ListView).SelectedItem).Id;
+            SetMemberInfo(sender as ListView);
+            SetMemberShip(id);
+            SetTrainings(id);
+        }
+        private void SetTrainings(int id)
+        {
+            string querry = $"select * from trening where Clan_IdOsoba='{id}'";
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            List<Training> trainingList = new List<Training>();
+
+            while (reader.Read())
+            {
+                trainingList.Add(new Training(reader.GetDateTime(0), reader.GetDateTime(1)));
+            }
+            trainingsListView.ItemsSource = trainingList;
+        }
+        private void SetMemberShip(int id)
+        {
+
+            teretanaDB.Open();
+            string querry = $"select DatumUplate, TrajanjeClanarine from clanarina join clan on Clan.Clan_IdOsoba=Clanarina.Clan_IdOsoba where Clan.Clan_IdOsoba={id}";
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText= querry;
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            reader.Read();
+
+            DateTime paidAt = reader.GetDateTime(0);
+            string membershipDuration = reader.GetString(1);
+            DateTime validUntil = paidAt.AddDays(int.Parse(membershipDuration));
+            TimeSpan daysLeft = validUntil.Subtract(DateTime.Now);
+            paidAtLbl.Content = paidAt.ToShortDateString();
+            validUntilLbl.Content = validUntil.ToShortDateString();
+            daysLeftLbl.Content = daysLeft.Days.ToString();
+
+            teretanaDB.Close();
+        }
+        private void SetMemberInfo(ListView sender)
+        {
+            ListView? listView = sender;
             int idOsoba = ((BasicMemberInfo)listView.Items.CurrentItem).Id;
 
             teretanaDB.Open();
@@ -84,13 +129,14 @@ namespace Teretana
             info.Email = reader.GetString(5);
             info.PostanskiBroj = reader.GetInt32(6);
 
+            teretanaDB.Close();
+
             nameTextBox.Text = info.Name;
             surnameTextBox.Text = info.Surname;
-            datePicker.Text = info.DateTime.ToString();
+            datePicker.Text = info.DateTime.ToShortDateString();
             jmbgTextBox.Text = info.JMBG;
             emailTextBox.Text = info.Email;
         }
-
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             SetElementsLock(true);
@@ -99,6 +145,22 @@ namespace Teretana
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             SetElementsLock(false);
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new LoginWindow().Show();
+            this.Close();
+        }
+
+        private void Add_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ClearAllFields();
+        }
+        private void ClearAllFields()
+        {
+
         }
     }
 }

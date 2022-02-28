@@ -19,6 +19,7 @@
         <Border BorderBrush="Black"
             BorderThickness="2"
             VerticalAlignment="Top"
+                Background="White"
             CornerRadius="5" Margin="512,162,61,0">
 
             <StackPanel Margin="5"
