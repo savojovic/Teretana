@@ -34,6 +34,7 @@ namespace Teretana
             datePicker.IsEnabled = isUnLocked;
             jmbgTextBox.IsEnabled = isUnLocked;
             emailTextBox.IsEnabled = isUnLocked;
+            citiesComboBox.IsEnabled = isUnLocked;
             if (!isUnLocked)
             {
                 saveBtn.Visibility = Visibility.Collapsed;
@@ -64,10 +65,7 @@ namespace Teretana
 
         private void membersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int id = ((BasicMemberInfo)(sender as ListView).SelectedItem).Id;
-            SetMemberInfo(sender as ListView);
-            SetMemberShip(id);
-            SetTrainings(id);
+            SetAllFields(sender);
         }
         private void SetTrainings(int id)
         {
@@ -84,6 +82,7 @@ namespace Teretana
                 trainingList.Add(new Training(reader.GetDateTime(0), reader.GetDateTime(1)));
             }
             trainingsListView.ItemsSource = trainingList;
+            teretanaDB.Close();
         }
         private void SetMemberShip(int id)
         {
@@ -128,7 +127,6 @@ namespace Teretana
             info.JMBG = reader.GetString(4);
             info.Email = reader.GetString(5);
             info.PostanskiBroj = reader.GetInt32(6);
-
             teretanaDB.Close();
 
             nameTextBox.Text = info.Name;
@@ -136,6 +134,36 @@ namespace Teretana
             datePicker.Text = info.DateTime.ToShortDateString();
             jmbgTextBox.Text = info.JMBG;
             emailTextBox.Text = info.Email;
+            citiesComboBox.ItemsSource = GetAllCities();
+            citiesComboBox.Text = GetCityName(info.PostanskiBroj);
+        }
+        private List<string> GetAllCities()
+        {
+            List<string> list = new List<string>();
+            teretanaDB.Open();
+            string querry = "select naziv from opstina";
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                list.Add(reader.GetString(0));
+            }
+            teretanaDB.Close();
+            return list;
+        }
+        private string GetCityName(int postanskiBroj)
+        {
+            teretanaDB.Open();
+            string querry = $"select naziv from opstina where postanskibroj={postanskiBroj}";
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            reader.Read();
+            string naziv = reader.GetString(0);
+            teretanaDB.Close();
+            return naziv;
         }
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
@@ -145,9 +173,48 @@ namespace Teretana
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             SetElementsLock(false);
-
+            InsertNewMemberIntoDb(GetNewMemberInfo());
         }
+            
+        private void InsertNewMemberIntoDb(BasicMemberInfo member)
+        {
+            string date = String.Format("{0:yyyy/MM/dd}", member.DateTime);
 
+            string querry = $"insert into osoba (ime, prezime, datumrodjenja, jmbg, email,opstina_postanskibroj) " +
+                $"values ('{member.Name}','{member.Surname}','{date}','{member.JMBG}','{member.Email}','{member.PostanskiBroj}')";
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            if (cmd.ExecuteNonQuery() == -1)
+            {
+                MessageBox.Show("Error Inserting new member");
+            }
+            teretanaDB.Close();
+        }
+        BasicMemberInfo GetNewMemberInfo()
+        {
+            BasicMemberInfo newMember = new BasicMemberInfo();
+            newMember.Name = nameTextBox.Text;
+            newMember.Surname = surnameTextBox.Text;
+            newMember.JMBG = jmbgTextBox.Text;
+            newMember.Email = emailTextBox.Text;
+            newMember.DateTime = datePicker.SelectedDate.Value.Date;
+            newMember.PostanskiBroj = GetPostalCode(citiesComboBox.SelectedItem.ToString());
+            return newMember;
+        }
+        private int GetPostalCode(string name)
+        {
+            int postalCode;
+            teretanaDB.Open();
+            string querry = $"select postanskiBroj from opstina where naziv='{name}'";
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            postalCode = reader.GetInt32(0);
+            teretanaDB.Close();
+            return postalCode;
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new LoginWindow().Show();
@@ -160,7 +227,29 @@ namespace Teretana
         }
         private void ClearAllFields()
         {
+            nameTextBox.Clear();
+            surnameTextBox.Clear();
+            datePicker.Text=String.Empty;
+            jmbgTextBox.Clear();
+            emailTextBox.Clear();
+            paidAtLbl.Content = String.Empty;
+            validUntilLbl.Content = String.Empty;
+            daysLeftLbl.Content = String.Empty; 
+            trainingsListView.ItemsSource = new List<string>();
+            SetElementsLock(true);
+        }
 
+        private void SetAllFields(object sender)
+        {
+            int id = ((BasicMemberInfo)(sender as ListView).SelectedItem).Id;
+            SetMemberInfo(sender as ListView);
+            SetMemberShip(id);
+            SetTrainings(id);
+        }
+
+        private void gradoviComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
         }
     }
 }
