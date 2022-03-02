@@ -307,30 +307,51 @@ namespace Teretana
             string querryDeleteTrainings = $"delete from trening where Clan_IdOsoba={memberId}";
             string querryDeleteMember = $"delete from clan where Clan_IdOsoba={memberId}";
 
-            teretanaDB.Open();
-            MySqlCommand cmd = teretanaDB.CreateCommand();
-            cmd.CommandText = querryDeleteMembership;
-            if (cmd.ExecuteNonQuery() != -1)
+            string sMessageBoxText = "Do you want to continue?";
+            string sCaption = "Power Gym";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+
+            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+
+            switch (rsltMessageBox)
             {
-                cmd.CommandText = querryDeleteTrainings;
-                if (cmd.ExecuteNonQuery() != -1)
-                {
-                    cmd.CommandText = querryDeleteMember;
-                    if(cmd.ExecuteNonQuery() == -1)
+                case MessageBoxResult.Yes:
+                    teretanaDB.Open();
+                    MySqlCommand cmd = teretanaDB.CreateCommand();
+                    cmd.CommandText = querryDeleteMembership;
+                    if (cmd.ExecuteNonQuery() != -1)
+                    {
+                        cmd.CommandText = querryDeleteTrainings;
+                        if (cmd.ExecuteNonQuery() != -1)
+                        {
+                            cmd.CommandText = querryDeleteMember;
+                            if (cmd.ExecuteNonQuery() == -1)
+                            {
+                                MessageBox.Show("Failed to delete the member.");
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to delete the member.");
+                        }
+                    }
+                    else
                     {
                         MessageBox.Show("Failed to delete the member.");
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Failed to delete the member.");
-                }
+                    teretanaDB.Close();
+                    break;
+
+                case MessageBoxResult.No:
+                    break;
+
+                case MessageBoxResult.Cancel:
+                    break;
             }
-            else
-            {
-                MessageBox.Show("Failed to delete the member.");
-            }
-            teretanaDB.Close();
+
+           
         }
     }
 }
