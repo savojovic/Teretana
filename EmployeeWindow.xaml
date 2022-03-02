@@ -86,7 +86,7 @@
         <Label Content="Members:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
         <Button Content="ADD" x:Name="addBtn" HorizontalAlignment="Left" Margin="215,46,0,0" VerticalAlignment="Top" Width="54" Click="Add_Button_Click"/>
         <Button Content="EDIT" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54" Click="EditButton_Click" x:Name="editBtn"/>
-        <Button Content="DELETE" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54"/>
+        <Button Content="DELETE" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54" Click="Delete_Button_Click"/>
         <Button Content="LOGOUT" HorizontalAlignment="Left" Margin="920,46,0,0" VerticalAlignment="Top" Width="54" Click="Button_Click"/>
         <Button Content="SAVE" HorizontalAlignment="Left" Margin="392,46,0,0" VerticalAlignment="Top" Width="54" Height="20" x:Name="saveBtn" Click="saveBtn_Click"/>
     </Grid>
