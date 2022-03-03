@@ -24,12 +24,29 @@ namespace Teretana
         string memberName;
         MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
 
-        public NewMembershipWindow(int memberId, string memberName)
+
+        public NewMembershipWindow(int memberId)
+        {
+            InitializeComponent();
+
+        }
+        public NewMembershipWindow(int memberId, string memberName, bool isEdit)
         {
             InitializeComponent();
             this.memberId = memberId;
             this.memberName = memberName;
-            SetDefaultMembershipInfo();
+            if (isEdit)
+            {
+                SetDefaultMembershipInfo();
+            }
+            else
+            {
+                SetExistingMembershipInfo();
+            }
+        }
+        private void SetExistingMembershipInfo()
+        {
+
         }
         private void SetDefaultMembershipInfo()
         {

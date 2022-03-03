@@ -55,7 +55,7 @@ namespace Teretana
             List<BasicMemberInfo> members = new List<BasicMemberInfo>();
             while (reader.Read())
             {
-                members.Add(new BasicMemberInfo(reader.GetInt32(0),reader.GetString(1), reader.GetString(2), reader.GetDateTime(3)));
+                members.Add(new BasicMemberInfo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetDateTime(3)));
             }
             membersListView.ItemsSource = members;
             teretanaDB.Close();
@@ -85,7 +85,8 @@ namespace Teretana
                 }
                 trainingsListView.ItemsSource = trainingList;
                 teretanaDB.Close();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 teretanaDB.Close();
             }
@@ -112,7 +113,8 @@ namespace Teretana
                 daysLeftLbl.Content = daysLeft.Days.ToString();
 
                 teretanaDB.Close();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 teretanaDB.Close();
                 ClearMembershipFields();
@@ -187,7 +189,7 @@ namespace Teretana
             SetElementsLock(false);
             InsertNewMemberIntoDb(GetNewMemberInfo());
         }
-            
+
         private void InsertNewMemberIntoDb(BasicMemberInfo member)
         {
             try
@@ -212,9 +214,9 @@ namespace Teretana
                 cmd.ExecuteNonQuery();
                 teretanaDB.Close();
             }
-            catch(MySqlException ex)
+            catch (MySqlException ex)
             {
-                if(!ex.Message.Contains("Cannot add or update a child row: a foreign key constraint fails"))
+                if (!ex.Message.Contains("Cannot add or update a child row: a foreign key constraint fails"))
                 {
                     MessageBox.Show("Unable to add a new member.");
                 }
@@ -232,11 +234,12 @@ namespace Teretana
                 newMember.Email = emailTextBox.Text;
                 newMember.DateTime = datePicker.SelectedDate.Value.Date;
                 newMember.PostanskiBroj = GetPostalCode(citiesComboBox.SelectedItem.ToString());
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
 
             }
-            
+
             return newMember;
         }
         private int GetPostalCode(string name)
@@ -297,7 +300,7 @@ namespace Teretana
 
         private void gradoviComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+
         }
 
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
@@ -347,7 +350,7 @@ namespace Teretana
                     break;
             }
 
-           
+
         }
         private MessageBoxResult AskToContinue()
         {
@@ -359,10 +362,27 @@ namespace Teretana
             return MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
         }
 
-        private void newMembershipBtn_Click(object sender, RoutedEventArgs e)
+        private void newMembershipsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string btntext = (e.OriginalSource as Button).Content.ToString();
+
+            switch (btntext)
+            {
+                case "NEW":
+                    AddNewMembership();
+                    break;
+                case "EDIT":
+                    EditMembership();
+                    break;
+                case "REVOKE":
+                    break;
+            }
+        }
+        private void AddNewMembership()
         {
             string querry = "";
-            string memberName=string.Empty;
+            string memberName = string.Empty;
+            bool isEditMembership = false;
             int memberId;
             try
             {
@@ -371,7 +391,7 @@ namespace Teretana
 
                 if (paidAtLbl.Content.ToString() != string.Empty)
                     throw new ExistingMembershipException("Member already has a membership.");
-                new NewMembershipWindow(memberId,memberName).ShowDialog();
+                new NewMembershipWindow(memberId, memberName, isEditMembership).ShowDialog();
             }
             catch (ExistingMembershipException ex)
             {
@@ -380,6 +400,34 @@ namespace Teretana
             catch (NullReferenceException ex)
             {
                 MessageBox.Show("Select a member first.");
+            }
+        }
+        private void EditMembership()
+        {
+            string querry = "";
+            string memberName = string.Empty;
+            bool isEditMembership = true;
+            int memberId;
+            try
+            {
+                memberId = ((BasicMemberInfo)membersListView.SelectedItem).Id;
+                memberName = ((BasicMemberInfo)membersListView.SelectedItem).Name;
+                if(paidAtLbl.Content.ToString() == string.Empty)
+                {
+                    throw new Exception("First create a new membership.");
+                }
+                else
+                {
+                    //Start new membership window in edit mode
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show("Select a member first.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }
