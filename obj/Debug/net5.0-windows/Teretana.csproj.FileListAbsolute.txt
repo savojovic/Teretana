@@ -56,3 +56,5 @@ C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windo
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\LoginWindow.baml
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana.csproj.CopyComplete
 C:\Users\Jovo\Documents\01 Fakultet Projekti\HCI\Teretana\obj\Debug\net5.0-windows\Teretana.csproj.AssemblyReference.cache
+C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\NewMembershipWindow.g.cs
+C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\NewMembershipWindow.baml

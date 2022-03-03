@@ -65,7 +65,7 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <Button Content="NEW" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54" Margin="10,10,0,0"/>
+                                <Button x:Name="newMembershipBtn" Content="NEW" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54" Margin="10,10,0,0" Click="newMembershipBtn_Click"/>
                                 <Button Content="EXTEND" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="54" Margin="10,37,0,0"/>
                                 <Button Content="REVOKE" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="54" Margin="10,5,0,0" Grid.Row="1" RenderTransformOrigin="1.037,0.561"/>
                             </Grid>

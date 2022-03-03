@@ -307,13 +307,9 @@ namespace Teretana
             string querryDeleteTrainings = $"delete from trening where Clan_IdOsoba={memberId}";
             string querryDeleteMember = $"delete from clan where Clan_IdOsoba={memberId}";
 
-            string sMessageBoxText = "Do you want to continue?";
-            string sCaption = "Power Gym";
 
-            MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
-            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
 
-            MessageBoxResult rsltMessageBox = MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+            MessageBoxResult rsltMessageBox = AskToContinue();
 
             switch (rsltMessageBox)
             {
@@ -352,6 +348,39 @@ namespace Teretana
             }
 
            
+        }
+        private MessageBoxResult AskToContinue()
+        {
+            string sMessageBoxText = "Do you want to continue?";
+            string sCaption = "Power Gym";
+
+            MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
+            return MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
+        }
+
+        private void newMembershipBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string querry = "";
+            string memberName=string.Empty;
+            int memberId;
+            try
+            {
+                memberId = ((BasicMemberInfo)membersListView.SelectedItem).Id;
+                memberName = ((BasicMemberInfo)membersListView.SelectedItem).Name;
+
+                if (paidAtLbl.Content.ToString() != string.Empty)
+                    throw new ExistingMembershipException("Member already has a membership.");
+                new NewMembershipWindow(memberId,memberName).ShowDialog();
+            }
+            catch (ExistingMembershipException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show("Select a member first.");
+            }
         }
     }
 }

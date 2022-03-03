@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\App.xaml
-31218009477
+41408780409
 
-10936490039
+12-1251772962
 1941039429880
-AdminWindow.xaml;EmployeeWindow.xaml;LoginWindow.xaml;
+AdminWindow.xaml;EmployeeWindow.xaml;LoginWindow.xaml;NewMembershipWindow.xaml;
 
-False
+True
 
