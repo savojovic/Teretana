@@ -11,10 +11,19 @@ namespace Teretana
         public DateTime startTime;
         public DateTime endTime;
 
+        public string GetStartTimeInMySqlFormat()
+        {
+            return String.Format("{0:yyyy/MM/dd}", startTime).Replace('/','-');
+        } 
         public string Date { set; get; }
         public string From { set; get; }
         public string Until { set; get; }
-
+        public Training(DateTime startTime)
+        {
+            this.startTime = startTime;
+            Date = GetStartDate();
+            From = GetStartHours();
+        }
         public Training(DateTime startTime, DateTime endTime)
         {
             this.startTime = startTime;
@@ -33,7 +42,14 @@ namespace Teretana
         }
         public string GetEndHours()
         {
-            return endTime.ToString("HH:mm");
+            try
+            {
+                return endTime.ToString("HH:mm");
+            }
+            catch (Exception)
+            {
+                return "";
+            }
         }
     }
 }

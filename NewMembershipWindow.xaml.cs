@@ -35,22 +35,35 @@ namespace Teretana
             InitializeComponent();
             this.memberId = memberId;
             this.memberName = memberName;
+            nameLbl.Content = memberName;
             if (isEdit)
             {
-                SetDefaultMembershipInfo();
+                SetExistingMembershipInfo();
             }
             else
             {
-                SetExistingMembershipInfo();
+                SetDefaultMembershipInfo();
             }
         }
         private void SetExistingMembershipInfo()
         {
+            
+            teretanaDB.Open();
+            string querry = $"select iznosclanarine, popust, datumuplate, trajanjeclanarine from clanarina where Clan_IdOsoba='{memberId}'";
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
 
+            reader.Read();
+
+            priceTextBox.Text = reader.GetDouble(0).ToString();
+            discountTextBox.Text = reader.GetDouble(1).ToString();
+            paidAtDatePicker.Text = reader.GetDateTime(2).ToShortDateString();
+            validForDaysTextBox.Text = reader.GetString(3);
+            teretanaDB.Close();
         }
         private void SetDefaultMembershipInfo()
         {
-            nameLbl.Content = memberName;
             discountTextBox.Text = "0";
             paidAtDatePicker.Text = DateTime.Now.ToShortDateString();
             validForDaysTextBox.Text = "31";
@@ -71,7 +84,8 @@ namespace Teretana
 
             teretanaDB.Open();
             string querry = $"insert into clanarina (iznosclanarine, popust, datumuplate, trajanjeclanarine, clan_idosoba) " +
-                $"values ('{price}','{discount}','{date}','{numOfValidDays}','{memberId}')";
+                $"values ('{price}','{discount}','{date}','{numOfValidDays}','{memberId}')" +
+                $"ON DUPLICATE KEY UPDATE `iznosclanarine`='{price}', `popust`='{discount}', `datumuplate`='{date}', `trajanjeclanarine`='{numOfValidDays}', `clan_idosoba`='{memberId}'";
             MySqlCommand cmd = teretanaDB.CreateCommand();
             cmd.CommandText = querry;
 
@@ -81,7 +95,7 @@ namespace Teretana
             }
             else
             {
-                MessageBox.Show("New membership created succesfully.");
+                MessageBox.Show("Changes saved succesfully.");
                 this.Close();
             }
 

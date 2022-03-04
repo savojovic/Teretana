@@ -49,7 +49,7 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button Content="START" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54"/>
+                        <Button x:Name="startTrainingBtn" Content="START" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54" Click="startTrainingBtn_Click" />
                         <Button Content="STOP" HorizontalAlignment="Left" Margin="177,201,0,0" VerticalAlignment="Top" Width="54"/>
                         <Label Content="Start a new training" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top"/>
                     </Grid>

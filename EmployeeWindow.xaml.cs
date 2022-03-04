@@ -69,8 +69,6 @@ namespace Teretana
         {
             try
             {
-
-
                 string querry = $"select * from trening where Clan_IdOsoba='{id}'";
                 teretanaDB.Open();
                 MySqlCommand cmd = teretanaDB.CreateCommand();
@@ -313,11 +311,10 @@ namespace Teretana
 
 
             MessageBoxResult rsltMessageBox = AskToContinue();
-
+            teretanaDB.Open();
             switch (rsltMessageBox)
             {
                 case MessageBoxResult.Yes:
-                    teretanaDB.Open();
                     MySqlCommand cmd = teretanaDB.CreateCommand();
                     cmd.CommandText = querryDeleteMembership;
                     if (cmd.ExecuteNonQuery() != -1)
@@ -349,8 +346,7 @@ namespace Teretana
                 case MessageBoxResult.Cancel:
                     break;
             }
-
-
+            teretanaDB.Close();
         }
         private MessageBoxResult AskToContinue()
         {
@@ -375,7 +371,28 @@ namespace Teretana
                     EditMembership();
                     break;
                 case "REVOKE":
+                    RevokeMembership();
                     break;
+            }
+        }
+        private void RevokeMembership()
+        {
+            MessageBoxResult rsltMessageBox = AskToContinue();
+            if (rsltMessageBox==MessageBoxResult.Yes)
+            {
+                string querry = $"delete from clanarina where Clan_IdOsoba='{((BasicMemberInfo)membersListView.SelectedItem).Id}'";
+                teretanaDB.Open();
+                MySqlCommand cmd = teretanaDB.CreateCommand();
+                cmd.CommandText = querry;
+                if (cmd.ExecuteNonQuery() == -1)
+                {
+                    MessageBox.Show("Deleting failed.");
+                }
+                else
+                {
+                    MessageBox.Show("Membeship succesfully deleted.");
+                }
+                teretanaDB.Close();
             }
         }
         private void AddNewMembership()
@@ -419,6 +436,7 @@ namespace Teretana
                 else
                 {
                     //Start new membership window in edit mode
+                    new NewMembershipWindow(memberId,memberName,isEditMembership).ShowDialog();
                 }
             }
             catch (NullReferenceException ex)
@@ -429,6 +447,31 @@ namespace Teretana
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void startTrainingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<Training> trainings = (List<Training>)trainingsListView.ItemsSource;
+            if (trainings == null)
+                trainings = new List<Training>();
+            Training newTraining = new Training(DateTime.Now);
+            trainings.Add(newTraining);
+
+            string querry = $"insert into trening (clan_idosoba, dosaou) values ('{((BasicMemberInfo)membersListView.SelectedItem).Id}','{newTraining.GetStartTimeInMySqlFormat()}')";
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+
+            if (cmd.ExecuteNonQuery() == -1)
+            {
+                MessageBox.Show("Failed to start a training.");
+            }
+            else
+            {
+                trainingsListView.ItemsSource = null;
+                trainingsListView.ItemsSource = trainings;
+            }
+            teretanaDB.Close();
         }
     }
 }
