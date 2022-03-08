@@ -1,6 +1,8 @@
-﻿using MySqlConnector;
+﻿using Microsoft.Win32;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +17,6 @@ using System.Windows.Shapes;
 
 namespace Teretana
 {
-    //TODO: prilikom dodavanja nove osobe, dodati ga i kao novog clana
     public partial class EmployeeWindow : Window
     {
         MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
@@ -79,7 +80,17 @@ namespace Teretana
 
                 while (reader.Read())
                 {
-                    trainingList.Add(new Training(reader.GetDateTime(0), reader.GetDateTime(1)));
+                    DateTime from = new DateTime();
+                    try
+                    {
+                        from = reader.GetDateTime(0);
+                        DateTime until = reader.GetDateTime(1);
+                        trainingList.Add(new Training(from,until));
+                    }
+                    catch (InvalidCastException)
+                    {
+                        trainingList.Add(new Training(from));
+                    }
                 }
                 trainingsListView.ItemsSource = trainingList;
                 teretanaDB.Close();
@@ -294,8 +305,30 @@ namespace Teretana
             SetMemberInfo(sender as ListView);
             SetMemberShip(id);
             SetTrainings(id);
+            SetAvatar(id);
         }
+        private void SetAvatar(int id)
+        {
+            string path;
+            teretanaDB.Open();
+            string querry = $"select avatarImg from osoba where idOsoba='{id}'";
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
 
+            try
+            {
+                path = reader.GetString(0);
+                if (path.Equals(String.Empty))
+                    throw new Exception();
+            }catch(Exception)
+            {
+                path = "C:\\Users\\jsavic\\Documents\\FaxProjects\\HCI\\WPF_Teretana\\Teretana\\Teretana\\assets\\avatar.png";
+            }
+            avatarImage.Source = new BitmapImage(new Uri(path));
+            teretanaDB.Close();
+        }
         private void gradoviComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -449,29 +482,119 @@ namespace Teretana
             }
         }
 
-        private void startTrainingBtn_Click(object sender, RoutedEventArgs e)
+        private void StartTrainingBtn_Click(object sender, RoutedEventArgs e)
         {
-            List<Training> trainings = (List<Training>)trainingsListView.ItemsSource;
-            if (trainings == null)
-                trainings = new List<Training>();
-            Training newTraining = new Training(DateTime.Now);
-            trainings.Add(newTraining);
-
-            string querry = $"insert into trening (clan_idosoba, dosaou) values ('{((BasicMemberInfo)membersListView.SelectedItem).Id}','{newTraining.GetStartTimeInMySqlFormat()}')";
-            teretanaDB.Open();
-            MySqlCommand cmd = teretanaDB.CreateCommand();
-            cmd.CommandText = querry;
-
-            if (cmd.ExecuteNonQuery() == -1)
+            if (daysLeftLbl.Content.ToString() != string.Empty)
             {
-                MessageBox.Show("Failed to start a training.");
+                List<Training> trainings = (List<Training>)trainingsListView.ItemsSource;
+                if (trainings == null)
+                    trainings = new List<Training>();
+                Training newTraining = new Training(DateTime.Now);
+                trainings.Add(newTraining);
+
+                string querry = $"insert into trening (clan_idosoba, dosaou) values ('{((BasicMemberInfo)membersListView.SelectedItem).Id}','{newTraining.startTime.ToString("yyyy:MM:dd hh:mm:ss").Replace('/', '-')}')";
+                teretanaDB.Open();
+                MySqlCommand cmd = teretanaDB.CreateCommand();
+                cmd.CommandText = querry;
+
+                if (cmd.ExecuteNonQuery() == -1)
+                {
+                    MessageBox.Show("Failed to start a training.");
+                }
+                else
+                {
+                    trainingsListView.ItemsSource = null;
+                    trainingsListView.ItemsSource = trainings;
+                }
+                teretanaDB.Close();
             }
             else
             {
-                trainingsListView.ItemsSource = null;
-                trainingsListView.ItemsSource = trainings;
+                MessageBox.Show("This member has no membership.");
             }
+        }
+
+        private void StopTrainingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            teretanaDB.Open();
+            try
+            {
+                Training selectedTraining = (Training)trainingsListView.SelectedItem;
+
+                List<Training> trainings = (List<Training>)trainingsListView.ItemsSource;
+                Training foundTraining = trainings[trainings.IndexOf(selectedTraining)];
+                if (foundTraining.Until==null)
+                {
+                    foundTraining.SetEndTime(DateTime.Now);
+                    int memberId = ((BasicMemberInfo)membersListView.SelectedItem).Id;
+                    string endTime = foundTraining.endTime.ToString("yyyy:MM:dd hh:mm:ss").Replace('/', '-');
+
+                    string querry = $"update trening set OtisaoU='{endTime}' where clan_idOsoba='{memberId}'";
+                    MySqlCommand cmd = teretanaDB.CreateCommand();
+                    cmd.CommandText = querry;
+
+                    if (cmd.ExecuteNonQuery() != -1)
+                    {
+                        trainingsListView.ItemsSource = null;
+                        trainingsListView.ItemsSource = trainings;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Unable to stop the training.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("This training has already ended.");
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("You have to select a training to end first.");
+            }
+            
             teretanaDB.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            try
+            {
+                if (fileDialog.ShowDialog() == true)
+                {
+                    string imgPath = fileDialog.FileName;
+                    //TODO: brise \
+                    teretanaDB.Open();
+                    MySqlCommand cmd = teretanaDB.CreateCommand();
+                    int memberid = ((BasicMemberInfo)membersListView.SelectedItem).Id;
+                    string querry = $"update osoba set avatarImg=\"{imgPath}\" where idosoba='{memberid}'";
+
+                    cmd.CommandText = querry;
+                    if (cmd.ExecuteNonQuery() == -1)
+                    {
+                        MessageBox.Show("Unable to set image");
+                    }
+                    else
+                    {
+                        avatarImage.Source = new BitmapImage(new Uri(imgPath));
+                        MessageBox.Show("Image succesfully set.");
+                    }
+                }
+            }
+            catch (NotSupportedException)
+            {
+                MessageBox.Show("File format not supported.");
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("First select a member.");
+            }
+            finally
+            {
+                teretanaDB.Close();
+            }
         }
     }
 }

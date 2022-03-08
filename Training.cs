@@ -24,6 +24,11 @@ namespace Teretana
             Date = GetStartDate();
             From = GetStartHours();
         }
+        public void SetEndTime(DateTime endTime)
+        {
+            this.endTime = endTime;
+            Until = GetEndHours();
+        }
         public Training(DateTime startTime, DateTime endTime)
         {
             this.startTime = startTime;

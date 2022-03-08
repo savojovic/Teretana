@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="EmployeeWindow" Height="650" Width="1000">
     <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
         <ListView  x:Name="membersListView" Margin="10,78,790,78" SelectionChanged="membersListBox_SelectionChanged">
             <ListView.View>
@@ -49,8 +52,8 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button x:Name="startTrainingBtn" Content="START" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54" Click="startTrainingBtn_Click" />
-                        <Button Content="STOP" HorizontalAlignment="Left" Margin="177,201,0,0" VerticalAlignment="Top" Width="54"/>
+                        <Button x:Name="startTrainingBtn" Content="START" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54" Click="StartTrainingBtn_Click" />
+                        <Button Content="STOP" HorizontalAlignment="Left" Margin="177,201,0,0" VerticalAlignment="Top" Width="54" Click="StopTrainingBtn_Click"/>
                         <Label Content="Start a new training" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
@@ -76,8 +79,8 @@
 
                     </Grid>
                 </GroupBox>
-                <Image HorizontalAlignment="Left" Height="147" Margin="90,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
-                <Button Content="···" HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Width="34"/>
+                <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="90,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
+                <Button Content="···" HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Width="34" Click="Button_Click_1"/>
 
 
             </Grid>
