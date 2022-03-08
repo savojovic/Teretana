@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -564,12 +565,12 @@ namespace Teretana
             {
                 if (fileDialog.ShowDialog() == true)
                 {
-                    string imgPath = fileDialog.FileName;
+                    string imgPath = fileDialog.FileName.Replace('\\','/');
                     //TODO: brise \
                     teretanaDB.Open();
                     MySqlCommand cmd = teretanaDB.CreateCommand();
                     int memberid = ((BasicMemberInfo)membersListView.SelectedItem).Id;
-                    string querry = $"update osoba set avatarImg=\"{imgPath}\" where idosoba='{memberid}'";
+                    string querry = $"update osoba set avatarImg='{imgPath}' where idosoba='{memberid}'";
 
                     cmd.CommandText = querry;
                     if (cmd.ExecuteNonQuery() == -1)
