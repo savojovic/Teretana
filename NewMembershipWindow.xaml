@@ -7,7 +7,10 @@
         mc:Ignorable="d"
         Title="NewMembershipWindow" Height="361" Width="360">
     <Grid Margin="0,0,0,-6" >
-        <GroupBox Header="GroupBox" Height="250" VerticalAlignment="Top" Margin="20,10,20,0">
+        <Grid.Background>
+            <ImageBrush ImageSource="/assets/background.png"/>
+        </Grid.Background>
+        <GroupBox BorderBrush="Black" BorderThickness="2" Header="GroupBox" Height="250" VerticalAlignment="Top" Margin="20,10,20,0">
             <Grid Height="250">
                 <Label Content="Iznos clanarine" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top"/>
                 <Label Content="Ime" HorizontalAlignment="Left" Margin="10,28,0,0" VerticalAlignment="Top"/>
@@ -16,14 +19,26 @@
                 <Label Content="Trajanje Clanarine" HorizontalAlignment="Left" Margin="10,116,0,0"  VerticalAlignment="Top"/>
 
                 <Label Content="name" x:Name="nameLbl" HorizontalAlignment="Left" Margin="154,29,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" x:Name="discountTextBox" Margin="154,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                <TextBox HorizontalAlignment="Left" x:Name="discountTextBox" Margin="154,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" TextChanged="discountTextBox_TextChanged"/>
                 <DatePicker HorizontalAlignment="Left" x:Name="paidAtDatePicker" Margin="154,85,0,0" VerticalAlignment="Top" Width="120"/>
                 <TextBox HorizontalAlignment="Left" x:Name="validForDaysTextBox" Margin="154,117,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="24"/>
                 <TextBox HorizontalAlignment="Left" x:Name="priceTextBox" Margin="154,147,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="24"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="saveBtn" Content="SAVE" HorizontalAlignment="Left" Margin="208,274,0,0"  Width="54" VerticalAlignment="Top" Click="saveBtn_Click"/>
-        <Button x:Name="cancelButton" Content="CANCEL" HorizontalAlignment="Left" Margin="267,274,0,0"  Width="54" VerticalAlignment="Top" Click="cancelButton_Click"/>
+        <Button Background="#49D191" BorderBrush="Black" BorderThickness="2" x:Name="saveBtn" Content="SAVE" HorizontalAlignment="Left" Margin="208,274,0,0"  Width="54" VerticalAlignment="Top" Click="saveBtn_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Background="#49D191" BorderBrush="Black" BorderThickness="2" x:Name="cancelButton" Content="CANCEL" HorizontalAlignment="Left" Margin="267,274,0,0"  Width="54" VerticalAlignment="Top" Click="cancelButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
     </Grid>
 </Window>

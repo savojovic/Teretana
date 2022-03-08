@@ -22,6 +22,7 @@ namespace Teretana
     {
         int memberId;
         string memberName;
+        const int MEMBERSHIP_PRICE = 30;
         MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
 
 
@@ -101,6 +102,25 @@ namespace Teretana
 
             //TODO: get all fields and save them into db
             //TODO: get changes entered in dicount and calculate new price
+        }
+
+        private void discountTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                double discount = double.Parse(discountTextBox.Text);
+                if (discount >= 0)
+                {
+                    double newPrice = MEMBERSHIP_PRICE - (MEMBERSHIP_PRICE * (discount / 100));
+                    if(newPrice>=0)
+                        priceTextBox.Text = newPrice.ToString();
+                }
+            }
+            catch (FormatException)
+            {
+
+            }
+           
         }
     }
 }
