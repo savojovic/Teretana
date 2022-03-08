@@ -7,9 +7,6 @@
         mc:Ignorable="d"
         Title="EmployeeWindow" Height="650" Width="1000">
     <Grid >
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/assets/background.png"/>
         </Grid.Background>
