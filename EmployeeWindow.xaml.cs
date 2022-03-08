@@ -2,19 +2,9 @@
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Teretana
 {
@@ -62,7 +52,6 @@ namespace Teretana
             membersListView.ItemsSource = members;
             teretanaDB.Close();
         }
-
         private void membersListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SetAllFields(sender);
@@ -193,13 +182,11 @@ namespace Teretana
         {
             SetElementsLock(true);
         }
-
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             SetElementsLock(false);
             InsertNewMemberIntoDb(GetNewMemberInfo());
         }
-
         private void InsertNewMemberIntoDb(BasicMemberInfo member)
         {
             try
@@ -226,7 +213,7 @@ namespace Teretana
             }
             catch (MySqlException ex)
             {
-                if (!ex.Message.Contains("Cannot add or update a child row: a foreign key constraint fails"))
+                if (ex.Message.Contains("Cannot add or update a child row: a foreign key constraint fails"))
                 {
                     MessageBox.Show("Unable to add a new member.");
                 }
@@ -270,7 +257,6 @@ namespace Teretana
             new LoginWindow().Show();
             this.Close();
         }
-
         private void Add_Button_Click(object sender, RoutedEventArgs e)
         {
             ClearAllFields();
@@ -281,6 +267,8 @@ namespace Teretana
             ClearMembershipFields();
             ClearTrainingsFields();
             SetElementsLock(true);
+            string path = "C:\\Users\\jsavic\\Documents\\FaxProjects\\HCI\\WPF_Teretana\\Teretana\\Teretana\\assets\\avatar.png";
+            avatarImage.Source = new BitmapImage(new Uri(path));
         }
         private void ClearMemberInfoFields()
         {
@@ -334,7 +322,6 @@ namespace Teretana
         {
 
         }
-
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             int memberId = ((BasicMemberInfo)membersListView.SelectedItem).Id;
@@ -391,7 +378,6 @@ namespace Teretana
             MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
             return MessageBox.Show(sMessageBoxText, sCaption, btnMessageBox, icnMessageBox);
         }
-
         private void newMembershipsBtn_Click(object sender, RoutedEventArgs e)
         {
             string btntext = (e.OriginalSource as Button).Content.ToString();
@@ -482,7 +468,6 @@ namespace Teretana
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void StartTrainingBtn_Click(object sender, RoutedEventArgs e)
         {
             if (daysLeftLbl.Content.ToString() != string.Empty)
@@ -514,7 +499,6 @@ namespace Teretana
                 MessageBox.Show("This member has no membership.");
             }
         }
-
         private void StopTrainingBtn_Click(object sender, RoutedEventArgs e)
         {
             teretanaDB.Open();
@@ -556,7 +540,6 @@ namespace Teretana
             
             teretanaDB.Close();
         }
-
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
 

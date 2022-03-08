@@ -10,8 +10,10 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <ListView  x:Name="membersListView" Margin="10,78,790,78" SelectionChanged="membersListBox_SelectionChanged">
+        <Grid.Background>
+            <ImageBrush ImageSource="/assets/background.png"/>
+        </Grid.Background>
+        <ListView BorderBrush="Black" BorderThickness="2" x:Name="membersListView" Margin="10,78,790,78" SelectionChanged="membersListBox_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}"/>
@@ -21,11 +23,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <GroupBox Header="Member&#xD;&#xA;" Margin="215,71,10,78">
+        <GroupBox BorderBrush="Black" BorderThickness="2" Header="Member" Margin="215,71,10,78">
 
             <Grid Margin="12,0,-12,0">
 
-                <GroupBox Header="Info" Margin="0,170,435,0">
+                <GroupBox BorderBrush="Black" BorderThickness="2" Header="Info" Margin="0,177,435,5">
                     <Grid Margin="0,30,0,-5" Height="220">
                         <Label Content="Name" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Margin="116,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="nameTextBox"/>
@@ -41,9 +43,9 @@
                         <TextBox HorizontalAlignment="Left" Margin="116,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="emailTextBox"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Trainings" Margin="382,170,15,0">
-                    <Grid Height="237">
-                        <ListView x:Name="trainingsListView" Margin="0,0,0,39">
+                <GroupBox BorderBrush="Black" BorderThickness="2" Header="Trainings" Margin="382,177,15,5">
+                    <Grid Height="237" >
+                        <ListView  x:Name="trainingsListView" Margin="0,0,0,39">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Date}" Width="100"/>
@@ -52,45 +54,110 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button x:Name="startTrainingBtn" Content="START" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54" Click="StartTrainingBtn_Click" />
-                        <Button Content="STOP" HorizontalAlignment="Left" Margin="177,201,0,0" VerticalAlignment="Top" Width="54" Click="StopTrainingBtn_Click"/>
+                        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" x:Name="startTrainingBtn" Content="START" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54" Click="StartTrainingBtn_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="STOP" HorizontalAlignment="Left" Margin="177,201,0,0" VerticalAlignment="Top" Width="54" Click="StopTrainingBtn_Click">
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
                         <Label Content="Start a new training" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Membership&#xD;&#xA;" Margin="382,6,15,285">
+                <GroupBox BorderBrush="Black" BorderThickness="2" Header="Membership" Margin="382,6,15,285">
                     <Grid Margin="0,0,8,0">
-                        <Label Content="Paid at:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Label Content="Valid until:" HorizontalAlignment="Left" Margin="0,26,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Days left:" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top"/>
-                        <GroupBox Margin="237,0,0,0">
-                            <Grid Height="114" Margin="0,0,9,0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Button x:Name="newMembershipBtn" Content="NEW" HorizontalAlignment="Left" VerticalAlignment="Top" Width="54" Margin="10,10,0,0" Click="newMembershipsBtn_Click"/>
-                                <Button x:Name="extendMembershipBtn" Content="EDIT" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="54" Margin="10,37,0,0" Click="newMembershipsBtn_Click"/>
-                                <Button Content="REVOKE" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="54" Margin="10,5,0,0" Grid.Row="1" RenderTransformOrigin="1.037,0.561" Click="newMembershipsBtn_Click"/>
+                        <Label Content="Paid at:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,18,0,0"/>
+                        <Label Content="Valid until:" HorizontalAlignment="Left" Margin="17,44,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Days left:" HorizontalAlignment="Left" Margin="17,74,0,0" VerticalAlignment="Top"/>
+
+                        <Label HorizontalAlignment="Left" Margin="104,18,0,0" VerticalAlignment="Top" x:Name="paidAtLbl"/>
+                        <Label HorizontalAlignment="Left" Margin="104,44,0,0" VerticalAlignment="Top" x:Name="validUntilLbl"/>
+                        <Label HorizontalAlignment="Left" Margin="104,74,0,0" VerticalAlignment="Top" x:Name="daysLeftLbl"/>
+
+                        <GroupBox Margin="237,10,0,19">
+                            <Grid Height="105" >
+                                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" x:Name="newMembershipBtn" Content="NEW" HorizontalAlignment="Center" VerticalAlignment="Top" Width="54" Margin="0,10,0,0" Click="newMembershipsBtn_Click">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" x:Name="extendMembershipBtn" Content="EDIT" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="54" Margin="0,37,0,0" Click="newMembershipsBtn_Click">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="REVOKE" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="54" Margin="0,64,0,0" RenderTransformOrigin="1.037,0.561" Click="newMembershipsBtn_Click">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
                             </Grid>
                         </GroupBox>
-                        <Label  HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Top" x:Name="paidAtLbl"/>
-                        <Label  HorizontalAlignment="Left" Margin="65,26,0,0" VerticalAlignment="Top" x:Name="validUntilLbl"/>
-                        <Label  HorizontalAlignment="Left" Margin="63,52,0,0" VerticalAlignment="Top" x:Name="daysLeftLbl"/>
+
 
                     </Grid>
                 </GroupBox>
                 <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="90,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
-                <Button Content="···" HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Width="34" Click="Button_Click_1"/>
+                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="···" HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Width="34" Click="Button_Click_1">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
 
 
             </Grid>
 
         </GroupBox>
         <Label Content="Members:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-        <Button Content="ADD" x:Name="addBtn" HorizontalAlignment="Left" Margin="215,46,0,0" VerticalAlignment="Top" Width="54" Click="Add_Button_Click"/>
-        <Button Content="EDIT" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54" Click="EditButton_Click" x:Name="editBtn"/>
-        <Button Content="DELETE" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54" Click="Delete_Button_Click"/>
-        <Button Content="LOGOUT" HorizontalAlignment="Left" Margin="920,46,0,0" VerticalAlignment="Top" Width="54" Click="Button_Click"/>
-        <Button Content="SAVE" HorizontalAlignment="Left" Margin="392,46,0,0" VerticalAlignment="Top" Width="54" Height="20" x:Name="saveBtn" Click="saveBtn_Click"/>
+        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="ADD" x:Name="addBtn" HorizontalAlignment="Left" Margin="215,46,0,0" VerticalAlignment="Top" Width="54" Click="Add_Button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="EDIT" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54" Click="EditButton_Click" x:Name="editBtn">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="DELETE" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54" Click="Delete_Button_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="LOGOUT" Background="#4AB191" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Margin="920,46,0,0" VerticalAlignment="Top" Width="54" Click="Button_Click" Height="25">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="SAVE" HorizontalAlignment="Left" Margin="392,46,0,0" VerticalAlignment="Top" Width="54" Height="22" x:Name="saveBtn" Click="saveBtn_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>
