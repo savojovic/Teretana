@@ -26,6 +26,7 @@ namespace Teretana
         {
             InitializeComponent();
             LoadEmployees();
+            LockAllFields(true);
         }
         private void LoadEmployees()
         {
@@ -42,6 +43,108 @@ namespace Teretana
             }
             employeeListView.ItemsSource = employees;
             teretanaDB.Close();
+        }
+
+        private void employeeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int id = ((BasicMemberInfo)(sender as ListView).SelectedItem).Id;
+            SetAllFields(id);
+        }
+        private void SetAllFields(int id)
+        {
+            SetInfoFields(id);
+            SetEmploymentInfo(id);
+            SetAvatar(id);
+            LockAllFields(true);
+        }
+       
+        private void LockAllFields(bool isLocked)
+        {
+            nameTextBox.IsEnabled = !isLocked;
+            surnameTextBox.IsEnabled = !isLocked;
+            dateofBirthDatePicker.IsEnabled = !isLocked;
+            jmbgTextBox.IsEnabled = !isLocked;
+            emailTextBox.IsEnabled = !isLocked;
+            employmentDateTextBox.IsEnabled = !isLocked;
+            cityComboBox.IsEnabled = !isLocked;
+            employmentDateTextBox.IsEnabled = !isLocked;
+            salaryTextBox.IsEnabled = !isLocked;
+            contractDuartionDatePicker.IsEnabled = !isLocked;
+            usernameTextBox.IsEnabled = !isLocked;
+        }
+        private void SetAvatar(int id)
+        {
+            teretanaDB.Open();
+            string querry = $"select avatarImg from osoba where idosoba='{id}'";
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText= querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            string path = reader.GetString(0);
+            if (string.Empty.Equals(path))
+            {
+                avatarImage.Source = new BitmapImage(new Uri(Config.DEFAULT_AVATAR_IMG_PATH));
+            }
+            else
+            {
+                avatarImage.Source = new BitmapImage(new Uri(path));
+            }
+            teretanaDB.Close();
+        }
+        private void SetEmploymentInfo(int id)
+        {
+            string querry = $"select * from zaposleni where Zaposleni_IdOsoba='{id}'";
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText= querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+
+            employmentDateTextBox.Text = reader.GetDateTime(1).ToShortDateString();
+            employmentDateTextBox.IsEnabled = false;
+            salaryTextBox.Text = reader.GetDouble(2).ToString();
+            contractDuartionDatePicker.Text = reader.GetDateTime(3).ToShortDateString();
+            usernameTextBox.Text = reader.GetString(6);
+
+            teretanaDB.Close();
+        }
+        private void SetInfoFields(int id)
+        {
+            teretanaDB.Open();
+            string querry = $"select * from osoba join opstina on PostanskiBroj=Opstina_PostanskiBroj where IdOsoba='{id}'";
+            MySqlCommand command = teretanaDB.CreateCommand();
+            command.CommandText = querry;
+            MySqlDataReader reader = command.ExecuteReader();
+
+            reader.Read();
+
+            nameTextBox.Text = reader.GetString(1);
+            surnameTextBox.Text = reader.GetString(2);
+            dateofBirthDatePicker.Text = reader.GetDateTime(3).ToShortDateString();
+            jmbgTextBox.Text = reader.GetString(4);
+            emailTextBox.Text = reader.GetString(5);
+            cityComboBox.Text = reader.GetString(9);
+            teretanaDB.Close();
+        }
+
+        private void editBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (employeeListView.SelectedItem != null)
+            {
+                LockAllFields(false);
+                saveBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MessageBox.Show("First select an employee.");
+            }
+        }
+
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            saveBtn.Visibility = Visibility.Hidden;
+            LockAllFields(true);
+            //TODO: Save edited updates to db or add a new employee
         }
     }
 }

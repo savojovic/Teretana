@@ -305,7 +305,6 @@ namespace Teretana
             cmd.CommandText = querry;
             MySqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
-
             try
             {
                 path = reader.GetString(0);
@@ -313,7 +312,7 @@ namespace Teretana
                     throw new Exception();
             }catch(Exception)
             {
-                path = "C:\\Users\\jsavic\\Documents\\FaxProjects\\HCI\\WPF_Teretana\\Teretana\\Teretana\\assets\\avatar.png";
+                path = Config.DEFAULT_AVATAR_IMG_PATH;
             }
             avatarImage.Source = new BitmapImage(new Uri(path));
             teretanaDB.Close();
