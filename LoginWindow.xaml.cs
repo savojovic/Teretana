@@ -67,7 +67,7 @@ namespace Teretana
         }
         private bool IsAdmin(string username)
         {
-            string querry = "select IsAdmin from zaposleni join osoba on Zaposleni_IdOsoba=IdOsoba where username='admin'";
+            string querry = $"select IsAdmin from zaposleni join osoba on Zaposleni_IdOsoba=IdOsoba where username='{username}'";
             teretanaDB.Open();
             MySqlCommand cmd = teretanaDB.CreateCommand();
             cmd.CommandText = querry;
@@ -85,7 +85,7 @@ namespace Teretana
         private bool isAuthorized(string username, string password)
         {
             SHA256 sha256 = SHA256.Create();
-            string passhash = GetHash(sha256, password);
+            string passhash = Config.GetHash(sha256, password);
             string querry = $"select PassHash from zaposleni join osoba on Zaposleni_IdOsoba=IdOsoba where username='{username}'";
             teretanaDB.Open();
 
@@ -102,17 +102,7 @@ namespace Teretana
                 return true;
             return false;
         }
-        private string GetHash(HashAlgorithm hashAlgorithm, string input)
-        {
-            byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
-            var sBuilder = new StringBuilder();
-
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-            return sBuilder.ToString();
-        }
+       
 
         private void credentialsBox_KeyDown(object sender, KeyEventArgs e)
         {

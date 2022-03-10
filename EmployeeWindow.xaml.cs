@@ -140,42 +140,45 @@ namespace Teretana
             info.JMBG = reader.GetString(4);
             info.Email = reader.GetString(5);
             info.PostanskiBroj = reader.GetInt32(6);
-            teretanaDB.Close();
 
             nameTextBox.Text = info.Name;
             surnameTextBox.Text = info.Surname;
             datePicker.Text = info.DateTime.ToShortDateString();
             jmbgTextBox.Text = info.JMBG;
             emailTextBox.Text = info.Email;
-            citiesComboBox.ItemsSource = GetAllCities();
-            citiesComboBox.Text = GetCityName(info.PostanskiBroj);
+            citiesComboBox.ItemsSource = EmployeeWindow.GetAllCities();
+            citiesComboBox.Text = EmployeeWindow.GetCityName(info.PostanskiBroj);
+
+            teretanaDB.Close();
         }
-        private List<string> GetAllCities()
+        public static List<string> GetAllCities()
         {
             List<string> list = new List<string>();
-            teretanaDB.Open();
+            MySqlConnection conn = new MySqlConnection(Config.dbConfigString);
+            conn.Open();
             string querry = "select naziv from opstina";
-            MySqlCommand cmd = teretanaDB.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = querry;
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
                 list.Add(reader.GetString(0));
             }
-            teretanaDB.Close();
+            conn.Close();
             return list;
         }
-        private string GetCityName(int postanskiBroj)
+        private static string GetCityName(int postanskiBroj)
         {
-            teretanaDB.Open();
+            MySqlConnection conn = new MySqlConnection(Config.dbConfigString);
+            conn.Open();
             string querry = $"select naziv from opstina where postanskibroj={postanskiBroj}";
-            MySqlCommand cmd = teretanaDB.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = querry;
             MySqlDataReader reader = cmd.ExecuteReader();
 
             reader.Read();
             string naziv = reader.GetString(0);
-            teretanaDB.Close();
+            conn.Close();
             return naziv;
         }
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -230,7 +233,7 @@ namespace Teretana
                 newMember.JMBG = jmbgTextBox.Text;
                 newMember.Email = emailTextBox.Text;
                 newMember.DateTime = datePicker.SelectedDate.Value.Date;
-                newMember.PostanskiBroj = GetPostalCode(citiesComboBox.SelectedItem.ToString());
+                newMember.PostanskiBroj = GetPostalCode(teretanaDB, citiesComboBox.SelectedItem.ToString());
             }
             catch (Exception ex)
             {
@@ -239,7 +242,7 @@ namespace Teretana
 
             return newMember;
         }
-        private int GetPostalCode(string name)
+        public static int GetPostalCode(MySqlConnection teretanaDB,string name)
         {
             int postalCode;
             teretanaDB.Open();

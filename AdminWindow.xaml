@@ -46,17 +46,23 @@
                         <Label Content="Salary" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
                         <Label Content="Contract duration" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
                         <Label Content="Username" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
-                        <TextBox x:Name="employmentDateTextBox" HorizontalAlignment="Left" Margin="118,14,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="24"/>
+
                         <TextBox x:Name="salaryTextBox" HorizontalAlignment="Left" Margin="118,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
                         <DatePicker x:Name="contractDuartionDatePicker" HorizontalAlignment="Left" Margin="118,76,0,0" VerticalAlignment="Top" Width="120"/>
                         <TextBox x:Name="usernameTextBox" HorizontalAlignment="Left" Margin="118,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <DatePicker x:Name="employmentDatePicker" HorizontalAlignment="Left" Margin="118,12,0,0" VerticalAlignment="Top" Width="120"/>
+                        <PasswordBox x:Name="pass1PasswordBox" HorizontalAlignment="Left" Margin="118,134,0,0" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <PasswordBox x:Name="pass2PasswordBox" HorizontalAlignment="Left" Margin="118,163,0,0" VerticalAlignment="Top" Width="120" Height="24"/>
+                        <Label Content="Password" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
+                        <Label Content="Password" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top"/>
 
                     </Grid>
                 </GroupBox>
                 <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="190,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
+                <CheckBox x:Name="isAdminCheckBox" Content="Is Admin" HorizontalAlignment="Left" Margin="454,10,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <Button Content="ADD" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top"  Width="54" />
+        <Button x:Name="addBtn" Content="ADD" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top"  Width="54" Click="addBtn_Click" />
         <Button x:Name="editBtn" Content="EDIT" HorizontalAlignment="Left" Margin="69,417,0,0" VerticalAlignment="Top"  Width="54" Click="editBtn_Click" />
         <Button Content="REMOVE" HorizontalAlignment="Left"  Margin="128,417,0,0" VerticalAlignment="Top"  Width="54" />
         <Button x:Name="saveBtn" Content="SAVE"  Visibility="Hidden" HorizontalAlignment="Left" Margin="187,417,0,0" VerticalAlignment="Top" Width="54" Click="saveBtn_Click"/>
