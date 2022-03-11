@@ -94,13 +94,22 @@ namespace Teretana
 
             MySqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
-            string realhash = reader.GetString("PassHash");
-
-            reader.Close();
-            teretanaDB.Close();
-            if (passhash.Equals(realhash))
-                return true;
-            return false;
+            string realhash;
+            try
+            {
+             realhash = reader.GetString("PassHash");
+                reader.Close();
+                teretanaDB.Close();
+                if (passhash.Equals(realhash))
+                    return true;
+                return false;
+            }
+            catch (Exception)
+            {
+                reader.Close();
+                teretanaDB.Close();
+                return false;
+            }
         }
        
 

@@ -30,9 +30,7 @@ namespace Teretana
             InitializeComponent();
             LoadEmployees();
             LockAllFields(true);
-            teretanaDB.Open();
             cityComboBox.ItemsSource = EmployeeWindow.GetAllCities();
-            teretanaDB.Close();
         }
         private void LoadEmployees()
         {
@@ -53,9 +51,20 @@ namespace Teretana
 
         private void employeeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            employeeId = ((BasicMemberInfo)(sender as ListView).SelectedItem).Id;
-            SetAllFields(employeeId);
-            saveBtn.Visibility = Visibility.Hidden;
+            ClearAllFields();
+            try
+            {
+                int id = ((BasicMemberInfo)(sender as ListView).SelectedItem).Id;
+                SetAllFields(id);
+                saveBtn.Visibility = Visibility.Hidden;
+            }
+            catch (Exception)
+            {
+                //When deselecting in emplyeeListView through code, selectionchanged is triggered
+                //this is the way of ignoring that t
+                //trigger.
+                //ugly but effective
+            }
         }
         private void SetAllFields(int id)
         {
@@ -78,6 +87,7 @@ namespace Teretana
             salaryTextBox.IsEnabled = !isLocked;
             contractDuartionDatePicker.IsEnabled = !isLocked;
             usernameTextBox.IsEnabled = !isLocked;
+            isAdminCheckBox.IsEnabled = !isLocked;
         }
         private void SetAvatar(int id)
         {
@@ -120,7 +130,7 @@ namespace Teretana
             salaryTextBox.Text = reader.GetDouble(2).ToString();
             contractDuartionDatePicker.Text = reader.GetDateTime(3).ToShortDateString();
             usernameTextBox.Text = reader.GetString(6);
-
+            isAdminCheckBox.IsChecked = reader.GetBoolean(5);
             teretanaDB.Close();
         }
         private void SetInfoFields(int id)
@@ -171,9 +181,23 @@ namespace Teretana
                 DateTime dateOfBirth = dateofBirthDatePicker.DisplayDate;
                 string dateOfBirthString = dateOfBirth.ToString("yyyy-MM-dd");
                 int postalCode = EmployeeWindow.GetPostalCode(teretanaDB, cityComboBox.SelectedItem.ToString());
-                string querry = $"insert into osoba (ime, prezime, datumrodjenja, jmbg, email,opstina_postanskibroj) " +
-                        $"values ('{usernameTextBox.Text}','{surnameTextBox.Text}','{dateOfBirthString}','{jmbgTextBox.Text}','{emailTextBox.Text}','{postalCode}')" +
-                        $"ON DUPLICATE KEY UPDATE `ime`='{nameTextBox.Text}', `prezime`='{surnameTextBox.Text}', `datumrodjenja`='{dateOfBirthString}', `jmbg`='{jmbgTextBox.Text}', " +
+                int selectedId = ((BasicMemberInfo)employeeListView.SelectedItem).Id;
+                string querryIdOsobaPart;
+                string idOsoba;
+                if(selectedId >= 0)
+                {
+                    querryIdOsobaPart = "IdOsoba ";
+                    idOsoba = selectedId.ToString();
+                }
+                else
+                {
+                    querryIdOsobaPart = "";
+                    idOsoba = "";
+                }
+
+                string querry = $"insert into osoba ({querryIdOsobaPart}, ime, prezime, datumrodjenja, jmbg, email,opstina_postanskibroj) " +
+                        $"values ('{idOsoba}', '{usernameTextBox.Text}','{surnameTextBox.Text}','{dateOfBirthString}','{jmbgTextBox.Text}','{emailTextBox.Text}','{postalCode}')" +
+                        $"ON DUPLICATE KEY UPDATE `IdOsoba`='{idOsoba}', `ime`='{nameTextBox.Text}', `prezime`='{surnameTextBox.Text}', `datumrodjenja`='{dateOfBirthString}', `jmbg`='{jmbgTextBox.Text}', " +
                         $"`email`='{emailTextBox.Text}'," +
                         $"`opstina_postanskibroj`= '{postalCode}'";
 
@@ -191,9 +215,11 @@ namespace Teretana
                 string passHash = GetPasswordHash();
 
                 int isAdmin = (bool)isAdminCheckBox.IsChecked ? 1 : 0;
-
+                long id = cmd.LastInsertedId == -1 ? ((BasicMemberInfo)employeeListView.SelectedItem).Id : cmd.LastInsertedId;
                 string querry2 = $"insert into zaposleni (Zaposleni_IdOsoba, DatumZaposlenja, Plata, TrajanjeUgovora, PassHash, IsAdmin, Username) " +
-                    $"values ('{cmd.LastInsertedId}','{employmentDate}','{salaryTextBox.Text}','{contractDuration}','{passHash}','{isAdmin}','{usernameTextBox.Text}')";
+                    $"values ('{id}','{employmentDate}','{salaryTextBox.Text}','{contractDuration}','{passHash}','{isAdmin}','{usernameTextBox.Text}')" +
+                    $"ON DUPLICATE KEY UPDATE `Zaposleni_IdOsoba`='{id}', `DatumZaposlenja`='{employmentDate}', `Plata`='{salaryTextBox.Text}'," +
+                    $"`trajanjeugovora`='{contractDuration}', `passhash`='{passHash}', `IsAdmin`='{isAdmin}', `username`='{usernameTextBox.Text}'";
                 cmd.CommandText = querry2;
                 if (cmd.ExecuteNonQuery()==-1)
                 {
@@ -219,6 +245,19 @@ namespace Teretana
         }
         private string GetPasswordHash()
         {
+            if (pass1PasswordBox.Password.ToString().Equals(string.Empty))
+            {
+                MySqlConnection conn = new MySqlConnection(Config.dbConfigString);
+                conn.Open();
+                int id = ((BasicMemberInfo)employeeListView.SelectedItem).Id;
+                string querry = $"select PassHash from zaposleni where Zaposleni_IdOsoba='{id}'";
+
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText= querry;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                return reader.GetString(0);
+            }
             if (pass1PasswordBox.Password.ToString().Equals(pass2PasswordBox.Password.ToString()))
             {
                 SHA256 sha256 = SHA256.Create();
@@ -232,6 +271,7 @@ namespace Teretana
         }
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
+            employeeListView.SelectedItem = null;
             ClearAllFields();
             LockAllFields(false);
             saveBtn.Visibility = Visibility.Visible;
@@ -255,7 +295,14 @@ namespace Teretana
             salaryTextBox.Text = String.Empty;
             contractDuartionDatePicker.Text = String.Empty;
             usernameTextBox.Text = String.Empty;
+            pass1PasswordBox.Password = String.Empty;
+            pass2PasswordBox.Password = String.Empty;
         }
 
+        private void logoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new LoginWindow().Show();
+            Close();
+        }
     }
 }

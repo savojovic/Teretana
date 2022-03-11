@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="AdminWindow" Height="506" Width="830">
     <Grid Margin="0,0,10,0">
+        <Grid.Background>
+            <ImageBrush ImageSource="/assets/background.png"/>
+        </Grid.Background>
         <ListView x:Name="employeeListView" BorderBrush="Black" BorderThickness="2" Margin="10,36,0,78" Width="210" HorizontalAlignment="Left" SelectionChanged="employeeListView_SelectionChanged">
             <ListView.View>
                 <GridView>
@@ -62,9 +65,40 @@
                 <CheckBox x:Name="isAdminCheckBox" Content="Is Admin" HorizontalAlignment="Left" Margin="454,10,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
-        <Button x:Name="addBtn" Content="ADD" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top"  Width="54" Click="addBtn_Click" />
-        <Button x:Name="editBtn" Content="EDIT" HorizontalAlignment="Left" Margin="69,417,0,0" VerticalAlignment="Top"  Width="54" Click="editBtn_Click" />
-        <Button Content="REMOVE" HorizontalAlignment="Left"  Margin="128,417,0,0" VerticalAlignment="Top"  Width="54" />
-        <Button x:Name="saveBtn" Content="SAVE"  Visibility="Hidden" HorizontalAlignment="Left" Margin="187,417,0,0" VerticalAlignment="Top" Width="54" Click="saveBtn_Click"/>
+        <Button x:Name="addBtn"  BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="ADD" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top"  Width="54" Click="addBtn_Click" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="editBtn" BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="EDIT" HorizontalAlignment="Left" Margin="69,417,0,0" VerticalAlignment="Top"  Width="54" Click="editBtn_Click" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="REMOVE" Background="#49D191" HorizontalAlignment="Left"  Margin="128,417,0,0" VerticalAlignment="Top"  BorderBrush="Black" BorderThickness="2" Width="54" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="saveBtn"  BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="SAVE"  Visibility="Hidden" HorizontalAlignment="Left" Margin="187,417,0,0" VerticalAlignment="Top" Width="54" Click="saveBtn_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Width="54" x:Name="logoutBtn" BorderBrush="Black" BorderThickness="2"  Background="#4AB191" Content="LOGOUT" HorizontalAlignment="Left" Margin="166,12,0,0" VerticalAlignment="Top" Click="logoutBtn_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>
