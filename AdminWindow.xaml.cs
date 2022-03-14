@@ -1,18 +1,11 @@
-﻿using MySqlConnector;
+﻿using Microsoft.Win32;
+using MySqlConnector;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Teretana
 {
@@ -22,9 +15,6 @@ namespace Teretana
     public partial class AdminWindow : Window
     {
         MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
-
-        int employeeId;
-
         public AdminWindow()
         {
             InitializeComponent();
@@ -51,6 +41,7 @@ namespace Teretana
 
         private void employeeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            avatarImgBtn.IsEnabled = true;
             ClearAllFields();
             try
             {
@@ -60,9 +51,9 @@ namespace Teretana
             }
             catch (Exception)
             {
-                //When deselecting in emplyeeListView through code, selectionchanged is triggered
-                //this is the way of ignoring that t
-                //trigger.
+                teretanaDB.Close();
+                //When deselecting in emplyeeListView through code, selectionchanged() is triggered
+                //this is the way of ignoring that trigger
                 //ugly but effective
             }
         }
@@ -156,6 +147,7 @@ namespace Teretana
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
+            avatarImgBtn.IsEnabled = false;
             if (employeeListView.SelectedItem != null)
             {
                 LockAllFields(false);
@@ -169,79 +161,117 @@ namespace Teretana
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
+            avatarImgBtn.IsEnabled = true;
             saveBtn.Visibility = Visibility.Hidden;
             LockAllFields(true);
-            PersistBasicInfo();
-            //TODO: Save edited updates to db or add a new employee
-        }
-        private void PersistBasicInfo()
-        {
-            try
+            if (employeeListView.SelectedItem != null)
             {
-                DateTime dateOfBirth = dateofBirthDatePicker.DisplayDate;
-                string dateOfBirthString = dateOfBirth.ToString("yyyy-MM-dd");
-                int postalCode = EmployeeWindow.GetPostalCode(teretanaDB, cityComboBox.SelectedItem.ToString());
-                int selectedId = ((BasicMemberInfo)employeeListView.SelectedItem).Id;
-                string querryIdOsobaPart;
-                string idOsoba;
-                if(selectedId >= 0)
-                {
-                    querryIdOsobaPart = "IdOsoba ";
-                    idOsoba = selectedId.ToString();
-                }
-                else
-                {
-                    querryIdOsobaPart = "";
-                    idOsoba = "";
-                }
-
-                string querry = $"insert into osoba ({querryIdOsobaPart}, ime, prezime, datumrodjenja, jmbg, email,opstina_postanskibroj) " +
-                        $"values ('{idOsoba}', '{usernameTextBox.Text}','{surnameTextBox.Text}','{dateOfBirthString}','{jmbgTextBox.Text}','{emailTextBox.Text}','{postalCode}')" +
-                        $"ON DUPLICATE KEY UPDATE `IdOsoba`='{idOsoba}', `ime`='{nameTextBox.Text}', `prezime`='{surnameTextBox.Text}', `datumrodjenja`='{dateOfBirthString}', `jmbg`='{jmbgTextBox.Text}', " +
-                        $"`email`='{emailTextBox.Text}'," +
-                        $"`opstina_postanskibroj`= '{postalCode}'";
-
+                EditEmployee();
+            }
+            else
+            {
+                AddEmploymentInfo(AddBasicInfo());
+            }
+            LoadEmployees();
+        }
+        private void AddEmploymentInfo(long id)
+        {
+            if (id != 0)
+            {
+                int isAdmin = isAdminCheckBox.IsChecked == true ? 1 : 0;
+                string querry = $"insert into zaposleni (zaposleni_idOsoba, datumZaposlenja, plata, trajanjeugovora, passhash, isadmin, username)" +
+                                $"values ('{id}', '{employmentDatePicker.DisplayDate.ToString("yyyy-MM-dd")}', '{salaryTextBox.Text}', " +
+                                $"'{contractDuartionDatePicker.DisplayDate.ToString("yyyy-MM-dd")}', '{GetPasswordHash()}', '{isAdmin}', '{usernameTextBox.Text}')";
                 teretanaDB.Open();
                 MySqlCommand cmd = teretanaDB.CreateCommand();
                 cmd.CommandText = querry;
                 if (cmd.ExecuteNonQuery() == -1)
                 {
-                    MessageBox.Show("Unable to add basic info of a new employee.\nCheck if fields are filled correctly.");
-                    teretanaDB.Close();
-                    return;
-                }
-                string employmentDate = employmentDatePicker.DisplayDate.ToString("yyyy-MM-dd");
-                string contractDuration = contractDuartionDatePicker.DisplayDate.ToString("yyyy-MM-dd");
-                string passHash = GetPasswordHash();
-
-                int isAdmin = (bool)isAdminCheckBox.IsChecked ? 1 : 0;
-                long id = cmd.LastInsertedId == -1 ? ((BasicMemberInfo)employeeListView.SelectedItem).Id : cmd.LastInsertedId;
-                string querry2 = $"insert into zaposleni (Zaposleni_IdOsoba, DatumZaposlenja, Plata, TrajanjeUgovora, PassHash, IsAdmin, Username) " +
-                    $"values ('{id}','{employmentDate}','{salaryTextBox.Text}','{contractDuration}','{passHash}','{isAdmin}','{usernameTextBox.Text}')" +
-                    $"ON DUPLICATE KEY UPDATE `Zaposleni_IdOsoba`='{id}', `DatumZaposlenja`='{employmentDate}', `Plata`='{salaryTextBox.Text}'," +
-                    $"`trajanjeugovora`='{contractDuration}', `passhash`='{passHash}', `IsAdmin`='{isAdmin}', `username`='{usernameTextBox.Text}'";
-                cmd.CommandText = querry2;
-                if (cmd.ExecuteNonQuery()==-1)
-                {
-                    MessageBox.Show("Unable to add employment info of a new employee.\nCheck if fields are filled correctly.");
+                    MessageBox.Show("Unable to add employment info");
                 }
                 else
                 {
                     MessageBox.Show("New employee added succesfully.");
                 }
-            }
-            catch (MySqlException)
-            {
-                MessageBox.Show("Unable to add a new employee.\nCheck if fields are filled correctly.");
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
                 teretanaDB.Close();
             }
+        }
+        private long AddBasicInfo()
+        {
+            long ret=0;
+            try
+            {
+                int postalCode = EmployeeWindow.GetPostalCode(cityComboBox.SelectedItem.ToString());
+                string querry = $"insert into osoba (Ime, Prezime, DatumRodjenja, JMBG, Email, Opstina_PostanskiBroj, avatarImg)" +
+                                $" values('{nameTextBox.Text}', '{surnameTextBox.Text}', '{dateofBirthDatePicker.DisplayDate.ToString("yyyy-MM-dd")}', '{jmbgTextBox.Text}', " +
+                                $"'{emailTextBox.Text}', '{postalCode}', '{Config.DEFAULT_AVATAR_IMG_PATH}')";
+                teretanaDB.Open();
+                MySqlCommand cmd = teretanaDB.CreateCommand();
+                cmd.CommandText = querry;
+
+                if (cmd.ExecuteNonQuery() == -1)
+                {
+                    MessageBox.Show("Unable to add new employee.\nCheck if all fields are filled correctly.");
+                }
+                teretanaDB.Close();
+                return cmd.LastInsertedId;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to add new employee.\nCheck if all fields are filled correctly.");
+                return ret;
+            }
+
+        }
+        private void EditEmployee()
+        {
+            EditBasicInfo();
+            EditEmploymentInfo();
+        } 
+        private void EditEmploymentInfo()
+        {
+            int id = ((BasicMemberInfo)employeeListView.SelectedItem).Id;
+            int isAdmin = isAdminCheckBox.IsChecked == true ? 1 : 0;
+
+            string querry = $"insert into zaposleni (zaposleni_idOsoba, datumZaposlenja, plata, trajanjeugovora, passhash, isadmin, username )" +
+                            $"values('{id}','{employmentDatePicker.DisplayDate.ToString("yyyy-MM-dd")}', '{salaryTextBox.Text}', " +
+                            $"'{contractDuartionDatePicker.DisplayDate.ToString("yyyy-MM-dd")}', '{GetPasswordHash()}', '{isAdmin}', '{usernameTextBox.Text}') " +
+                            $"ON DUPLICATE KEY UPDATE " +
+                            $"`zaposleni_idOsoba`='{id}', `datumZaposlenja`='{employmentDatePicker.DisplayDate.ToString("yyyy-MM-dd")}', `plata`='{salaryTextBox.Text}'," +
+                            $"`trajanjeugovora`='{contractDuartionDatePicker.DisplayDate.ToString("yyyy-MM-dd")}', `passHash`='{GetPasswordHash()}', `isAdmin`='{isAdmin}'," +
+                            $"`username`='{usernameTextBox.Text}'";
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            if (cmd.ExecuteNonQuery() == -1)
+            {
+                MessageBox.Show("Unable to update employment info. Check if all fields are filled correctly.");
+            }
+            teretanaDB.Close();
+        }
+        private void EditBasicInfo()
+        {
+            int postalCode = EmployeeWindow.GetPostalCode(cityComboBox.SelectedItem.ToString());
+            int id = ((BasicMemberInfo)employeeListView.SelectedItem).Id;
+
+            string querry = $"insert into osoba (IdOsoba, ime, prezime, datumrodjenja, jmbg, email,opstina_postanskibroj) " +
+                            $"values ('{id}', '{nameTextBox.Text}', '{surnameTextBox.Text}', '{dateofBirthDatePicker.DisplayDate.ToString("yyyy-MM-dd")}','{jmbgTextBox.Text}', '{emailTextBox.Text}', '{postalCode}')" +
+                            $"ON DUPLICATE KEY UPDATE " +
+                            $"`IdOsoba`='{id}', `ime`='{nameTextBox.Text}', `prezime`='{surnameTextBox.Text}', `datumrodjenja`='{dateofBirthDatePicker.DisplayDate.ToString("yyyy-MM-dd")}', `jmbg`='{jmbgTextBox.Text}'," +
+                            $"`email`='{emailTextBox.Text}', `opstina_postanskibroj`='{postalCode}'";
+
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            if (cmd.ExecuteNonQuery() == -1)
+            {
+                MessageBox.Show("Unable to edit employee.\nCheck if fields are filled correctly.");
+            }
+            else
+            {
+                MessageBox.Show("Employee info succesfully updated.");
+            }
+            teretanaDB.Close();
         }
         private string GetPasswordHash()
         {
@@ -274,6 +304,7 @@ namespace Teretana
             employeeListView.SelectedItem = null;
             ClearAllFields();
             LockAllFields(false);
+            avatarImgBtn.IsEnabled = false;
             saveBtn.Visibility = Visibility.Visible;
         }
         private void ClearAllFields()
@@ -304,5 +335,85 @@ namespace Teretana
             new LoginWindow().Show();
             Close();
         }
+
+        private void removeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (employeeListView.SelectedItem == null)
+            {
+                MessageBox.Show("First select an employee.");
+            }
+            else
+            {
+                MessageBoxResult rsltMessageBox = EmployeeWindow.AskToContinue();
+                switch (rsltMessageBox)
+                {
+                    case MessageBoxResult.Yes:
+                        int id = ((BasicMemberInfo)employeeListView.SelectedItem).Id;
+                        string querry = $"delete from zaposleni where zaposleni_idOsoba='{id}'";
+                        teretanaDB.Open();
+                        MySqlCommand cmd = teretanaDB.CreateCommand();
+                        cmd.CommandText = querry;
+                        if (cmd.ExecuteNonQuery() == -1)
+                        {
+                            MessageBox.Show("Unable to delete employee.");
+                        }
+                        else
+                        {
+                            cmd.CommandText = $"delete from osoba where idosoba='{id}'";
+                            if (cmd.ExecuteNonQuery() != -1)
+                            {
+                                MessageBox.Show("Employee deleted succesfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Unable to delete employee.");
+                            }
+                        }
+                        teretanaDB.Close();
+                        break;
+                }
+            }
+        }
+
+        private void avatarImgBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            try
+            {
+                if (fileDialog.ShowDialog() == true)
+                {
+                    string imgPath = fileDialog.FileName.Replace('\\', '/');
+                    teretanaDB.Open();
+                    MySqlCommand cmd = teretanaDB.CreateCommand();
+                    int memberid = ((BasicMemberInfo)employeeListView.SelectedItem).Id;
+                    string querry = $"update osoba set avatarImg='{imgPath}' where idosoba='{memberid}'";
+
+                    cmd.CommandText = querry;
+                    if (cmd.ExecuteNonQuery() == -1)
+                    {
+                        MessageBox.Show("Unable to set image");
+                    }
+                    else
+                    {
+                        avatarImage.Source = new BitmapImage(new Uri(imgPath));
+                        MessageBox.Show("Image succesfully set.");
+                    }
+                }
+            }
+            catch (NotSupportedException)
+            {
+                MessageBox.Show("File format not supported.");
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show("First select a member.");
+            }
+            finally
+            {
+                teretanaDB.Close();
+            }
+        }
+
+       
     }
 }

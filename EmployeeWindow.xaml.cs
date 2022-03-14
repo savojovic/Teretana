@@ -233,7 +233,7 @@ namespace Teretana
                 newMember.JMBG = jmbgTextBox.Text;
                 newMember.Email = emailTextBox.Text;
                 newMember.DateTime = datePicker.SelectedDate.Value.Date;
-                newMember.PostanskiBroj = GetPostalCode(teretanaDB, citiesComboBox.SelectedItem.ToString());
+                newMember.PostanskiBroj = GetPostalCode(citiesComboBox.SelectedItem.ToString());
             }
             catch (Exception ex)
             {
@@ -242,17 +242,18 @@ namespace Teretana
 
             return newMember;
         }
-        public static int GetPostalCode(MySqlConnection teretanaDB,string name)
+        public static int GetPostalCode(string name)
         {
+            MySqlConnection conn = new MySqlConnection(Config.dbConfigString);
             int postalCode;
-            teretanaDB.Open();
+            conn.Open();
             string querry = $"select postanskiBroj from opstina where naziv='{name}'";
-            MySqlCommand cmd = teretanaDB.CreateCommand();
+            MySqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = querry;
             MySqlDataReader reader = cmd.ExecuteReader();
             reader.Read();
             postalCode = reader.GetInt32(0);
-            teretanaDB.Close();
+            conn.Close();
             return postalCode;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -320,18 +321,12 @@ namespace Teretana
             avatarImage.Source = new BitmapImage(new Uri(path));
             teretanaDB.Close();
         }
-        private void gradoviComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
         private void Delete_Button_Click(object sender, RoutedEventArgs e)
         {
             int memberId = ((BasicMemberInfo)membersListView.SelectedItem).Id;
             string querryDeleteMembership = $"delete from clanarina where Clan_IdOsoba={memberId}";
             string querryDeleteTrainings = $"delete from trening where Clan_IdOsoba={memberId}";
             string querryDeleteMember = $"delete from clan where Clan_IdOsoba={memberId}";
-
-
 
             MessageBoxResult rsltMessageBox = AskToContinue();
             teretanaDB.Open();
@@ -371,7 +366,7 @@ namespace Teretana
             }
             teretanaDB.Close();
         }
-        private MessageBoxResult AskToContinue()
+        public static MessageBoxResult AskToContinue()
         {
             string sMessageBoxText = "Do you want to continue?";
             string sCaption = "Power Gym";
@@ -581,6 +576,11 @@ namespace Teretana
             {
                 teretanaDB.Close();
             }
+        }
+
+        private void Refresh()
+        {
+
         }
     }
 }

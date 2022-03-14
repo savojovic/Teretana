@@ -35,7 +35,7 @@
                         <Label Content="JMBG" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Margin="116,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="jmbgTextBox"/>
                         <Label Content="City" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top"/>
-                        <ComboBox x:Name="citiesComboBox" HorizontalAlignment="Left" Margin="116,125,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="gradoviComboBox_SelectionChanged"/>
+                        <ComboBox x:Name="citiesComboBox" HorizontalAlignment="Left" Margin="116,125,0,0" VerticalAlignment="Top" Width="120" Height="26" />
                         <Label Content="Email" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Margin="116,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="emailTextBox"/>
                     </Grid>
@@ -108,12 +108,13 @@
                     </Grid>
                 </GroupBox>
                 <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="90,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
-                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="···" HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Width="34" Click="Button_Click_1">
+                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191"  HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Height="23" Width="27" Click="Button_Click_1">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
                         </Style>
                     </Button.Resources>
+                    <Image Source="assets/person.png" Height="13" Width="17"/>
                 </Button>
 
 

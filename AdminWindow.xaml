@@ -63,6 +63,14 @@
                 </GroupBox>
                 <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="190,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
                 <CheckBox x:Name="isAdminCheckBox" Content="Is Admin" HorizontalAlignment="Left" Margin="454,10,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="avatarImgBtn" BorderBrush="Black" BorderThickness="2" Background="#49D191" HorizontalAlignment="Left" Margin="342,134,0,0" VerticalAlignment="Top" Height="23" Width="27" Click="avatarImgBtn_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                    <Image Source="assets/person.png" Height="13" Width="17"/>
+                </Button>
             </Grid>
         </GroupBox>
         <Button x:Name="addBtn"  BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="ADD" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top"  Width="54" Click="addBtn_Click" >
@@ -79,7 +87,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="REMOVE" Background="#49D191" HorizontalAlignment="Left"  Margin="128,417,0,0" VerticalAlignment="Top"  BorderBrush="Black" BorderThickness="2" Width="54" >
+        <Button x:Name="removeBtn" Content="REMOVE" Background="#49D191" HorizontalAlignment="Left"  Margin="128,417,0,0" VerticalAlignment="Top"  BorderBrush="Black" BorderThickness="2" Width="54" Click="removeBtn_Click" >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

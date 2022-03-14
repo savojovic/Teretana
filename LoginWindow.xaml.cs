@@ -80,6 +80,7 @@ namespace Teretana
                 return true;
             }
             reader.Close();
+            teretanaDB.Close();
             return false;
         }
         private bool isAuthorized(string username, string password)
