@@ -65,6 +65,14 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <Button x:Name="settingsBtn" Background="#49D191" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Margin="740,10,0,0" VerticalAlignment="Top" Click="settingsBtn_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+            <Image Source="assets/settings.png" Height="19" Width="25"/>
+        </Button>
 
 
     </Grid>

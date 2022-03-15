@@ -128,5 +128,10 @@ namespace Teretana
                 MessageBox.Show(wrnogCredentials);
             }
         }
+
+        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new SettingsWindow().Show();
+        }
     }
 }

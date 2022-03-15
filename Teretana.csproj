@@ -12,6 +12,7 @@
     <None Remove="assets\logo.png" />
     <None Remove="assets\password.png" />
     <None Remove="assets\person.png" />
+    <None Remove="assets\settings.png" />
     <None Remove="avatar.png" />
     <None Remove="fonts\SFSportsNight.ttf" />
     <None Remove="fonts\SFSportsNightAlternate.ttf" />
@@ -39,6 +40,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="assets\person.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="assets\settings.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="avatar.png" />
