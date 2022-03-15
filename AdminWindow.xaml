@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Teretana"
+        xmlns:rs="clr-namespace:Teretana.Resources"
+        
         mc:Ignorable="d"
         Title="AdminWindow" Height="506" Width="830">
     <Grid Margin="0,0,10,0">
@@ -14,20 +16,20 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Name"  DisplayMemberBinding="{Binding Name}"/>
-                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}"/>
-                    <GridViewColumn Header="Date Time" DisplayMemberBinding="{Binding DateTime}"/>
+                    <GridViewColumn Header="{x:Static rs:Resources.Name_lbl}"  DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="{x:Static rs:Resources.Surname}" DisplayMemberBinding="{Binding Surname}"/>
+                    <GridViewColumn Header="{x:Static rs:Resources.Birth_date_lbl}" DisplayMemberBinding="{Binding DateTime}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Label Content="Employees:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="{x:Static rs:Resources.Employees_lbl}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
 
-        <GroupBox Header="Employee info" Margin="251,10,10,14">
+        <GroupBox Header="{x:Static rs:Resources.Employee_info_header}" Margin="251,10,10,14">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <GroupBox Header="Basic info" Margin="0,171,274,37">
+                <GroupBox Header="{x:Static rs:Resources.Info_header}" Margin="0,171,274,37">
                     <Grid Margin="0,0,-2,0">
                         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0"/>
                         <Label Content="Surname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,44,0,0"/>
@@ -43,12 +45,12 @@
                         <Label Content="City" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="Employment info" Margin="278,172,0,37">
+                <GroupBox Header="{x:Static rs:Resources.Employment_info_header}" Margin="278,172,0,37">
                     <Grid>
-                        <Label Content="Employment date" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Salary" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Contract duration" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Username" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{x:Static rs:Resources.Employment_date_lbl}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{x:Static rs:Resources.Salary_lbl}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{x:Static rs:Resources.Contract_duration_lbl}" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{x:Static rs:Resources.Username_lbl}" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>
 
                         <TextBox x:Name="salaryTextBox" HorizontalAlignment="Left" Margin="118,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
                         <DatePicker x:Name="contractDuartionDatePicker" HorizontalAlignment="Left" Margin="118,76,0,0" VerticalAlignment="Top" Width="120"/>
@@ -56,13 +58,13 @@
                         <DatePicker x:Name="employmentDatePicker" HorizontalAlignment="Left" Margin="118,12,0,0" VerticalAlignment="Top" Width="120"/>
                         <PasswordBox x:Name="pass1PasswordBox" HorizontalAlignment="Left" Margin="118,134,0,0" VerticalAlignment="Top" Width="120" Height="24"/>
                         <PasswordBox x:Name="pass2PasswordBox" HorizontalAlignment="Left" Margin="118,163,0,0" VerticalAlignment="Top" Width="120" Height="24"/>
-                        <Label Content="Password" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
-                        <Label Content="Password" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{x:Static rs:Resources.Password_lbl}" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top"/>
+                        <Label Content="{x:Static rs:Resources.Password_lbl}" HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top"/>
 
                     </Grid>
                 </GroupBox>
                 <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="190,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
-                <CheckBox x:Name="isAdminCheckBox" Content="Is Admin" HorizontalAlignment="Left" Margin="454,10,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="isAdminCheckBox" Content="{x:Static rs:Resources.IsAdmin_cb}" HorizontalAlignment="Left" Margin="454,10,0,0" VerticalAlignment="Top"/>
                 <Button x:Name="avatarImgBtn" BorderBrush="Black" BorderThickness="2" Background="#49D191" HorizontalAlignment="Left" Margin="342,134,0,0" VerticalAlignment="Top" Height="23" Width="27" Click="avatarImgBtn_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -73,35 +75,35 @@
                 </Button>
             </Grid>
         </GroupBox>
-        <Button x:Name="addBtn"  BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="ADD" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top"  Width="54" Click="addBtn_Click" >
+        <Button x:Name="addBtn"  BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Add_btn}" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top"  Width="54" Click="addBtn_Click" >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="editBtn" BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="EDIT" HorizontalAlignment="Left" Margin="69,417,0,0" VerticalAlignment="Top"  Width="54" Click="editBtn_Click" >
+        <Button x:Name="editBtn" BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Left" Margin="69,417,0,0" VerticalAlignment="Top"  Width="54" Click="editBtn_Click" >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="removeBtn" Content="REMOVE" Background="#49D191" HorizontalAlignment="Left"  Margin="128,417,0,0" VerticalAlignment="Top"  BorderBrush="Black" BorderThickness="2" Width="54" Click="removeBtn_Click" >
+        <Button x:Name="removeBtn" Content="{x:Static rs:Resources.Delete_btn}" Background="#49D191" HorizontalAlignment="Left"  Margin="128,417,0,0" VerticalAlignment="Top"  BorderBrush="Black" BorderThickness="2" Width="54" Click="removeBtn_Click" >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="saveBtn"  BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="SAVE"  Visibility="Hidden" HorizontalAlignment="Left" Margin="187,417,0,0" VerticalAlignment="Top" Width="54" Click="saveBtn_Click">
+        <Button x:Name="saveBtn"  BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Save_btn}"  Visibility="Hidden" HorizontalAlignment="Left" Margin="187,417,0,0" VerticalAlignment="Top" Width="54" Click="saveBtn_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Width="54" x:Name="logoutBtn" BorderBrush="Black" BorderThickness="2"  Background="#4AB191" Content="LOGOUT" HorizontalAlignment="Left" Margin="166,12,0,0" VerticalAlignment="Top" Click="logoutBtn_Click">
+        <Button Width="54" x:Name="logoutBtn" BorderBrush="Black" BorderThickness="2"  Background="#4AB191" Content="{x:Static rs:Resources.Logout_btn}" HorizontalAlignment="Left" Margin="166,12,0,0" VerticalAlignment="Top" Click="logoutBtn_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

@@ -1,6 +1,7 @@
 ﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -25,11 +26,12 @@ namespace Teretana
         string noEmptyFields = "You must enter your Username and Password!";
         string wrnogCredentials = "Username and password do not match!";
 
-        
         MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
         
         public LoginWindow()
         {
+            //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("sr");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("sr");
             InitializeComponent();
         }
 

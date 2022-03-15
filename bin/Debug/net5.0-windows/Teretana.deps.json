@@ -12,6 +12,14 @@
         },
         "runtime": {
           "Teretana.dll": {}
+        },
+        "resources": {
+          "en/Teretana.resources.dll": {
+            "locale": "en"
+          },
+          "sr/Teretana.resources.dll": {
+            "locale": "sr"
+          }
         }
       },
       "MySqlConnector/2.1.7": {

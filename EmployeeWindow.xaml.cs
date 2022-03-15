@@ -189,6 +189,7 @@ namespace Teretana
         {
             SetElementsLock(false);
             InsertNewMemberIntoDb(GetNewMemberInfo());
+            LoadMembers();
         }
         private void InsertNewMemberIntoDb(BasicMemberInfo member)
         {
@@ -205,7 +206,7 @@ namespace Teretana
                 cmd.CommandText = querry;
                 if (cmd.ExecuteNonQuery() == -1)
                 {
-                    MessageBox.Show("Error Inserting new member");
+                    MessageBox.Show(Teretana.Resources.Resources.Insert_new_member_err);
                 }
                 long newMemberId = cmd.LastInsertedId;
                 string querry2 = $"insert into clan (clan_idosoba,brojdolazaka) values ('{newMemberId}', '{0}') ON DUPLICATE KEY UPDATE " +
@@ -218,7 +219,7 @@ namespace Teretana
             {
                 if (ex.Message.Contains("Cannot add or update a child row: a foreign key constraint fails"))
                 {
-                    MessageBox.Show("Unable to add a new member.");
+                    MessageBox.Show(Teretana.Resources.Resources.Insert_new_member_err);
                 }
                 teretanaDB.Close();
             }
@@ -294,11 +295,19 @@ namespace Teretana
         }
         private void SetAllFields(object sender)
         {
-            int id = ((BasicMemberInfo)(sender as ListView).SelectedItem).Id;
-            SetMemberInfo(sender as ListView);
-            SetMemberShip(id);
-            SetTrainings(id);
-            SetAvatar(id);
+            try
+            {
+                int id = ((BasicMemberInfo)(sender as ListView).SelectedItem).Id;
+                SetMemberInfo(sender as ListView);
+                SetMemberShip(id);
+                SetTrainings(id);
+                SetAvatar(id);
+            }
+            catch (Exception)
+            {
+
+            }
+            
         }
         private void SetAvatar(int id)
         {
@@ -343,17 +352,17 @@ namespace Teretana
                             cmd.CommandText = querryDeleteMember;
                             if (cmd.ExecuteNonQuery() == -1)
                             {
-                                MessageBox.Show("Failed to delete the member.");
+                                MessageBox.Show(Teretana.Resources.Resources.Delete_err);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Failed to delete the member.");
+                            MessageBox.Show(Teretana.Resources.Resources.Delete_err);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Failed to delete the member.");
+                        MessageBox.Show(Teretana.Resources.Resources.Delete_err);
                     }
                     teretanaDB.Close();
                     break;
@@ -365,11 +374,13 @@ namespace Teretana
                     break;
             }
             teretanaDB.Close();
+            LoadMembers();
         }
         public static MessageBoxResult AskToContinue()
         {
-            string sMessageBoxText = "Do you want to continue?";
-            string sCaption = "Power Gym";
+            string sMessageBoxText = Teretana.Resources.Resources.Continue_prompt;
+
+            string sCaption = Teretana.Resources.Resources.Gym_name;
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNoCancel;
             MessageBoxImage icnMessageBox = MessageBoxImage.Warning;
@@ -403,11 +414,11 @@ namespace Teretana
                 cmd.CommandText = querry;
                 if (cmd.ExecuteNonQuery() == -1)
                 {
-                    MessageBox.Show("Deleting failed.");
+                    MessageBox.Show(Teretana.Resources.Resources.Delete_err);
                 }
                 else
                 {
-                    MessageBox.Show("Membeship succesfully deleted.");
+                    MessageBox.Show(Teretana.Resources.Resources.Succesfull_deletion);
                 }
                 teretanaDB.Close();
             }
@@ -424,7 +435,7 @@ namespace Teretana
                 memberName = ((BasicMemberInfo)membersListView.SelectedItem).Name;
 
                 if (paidAtLbl.Content.ToString() != string.Empty)
-                    throw new ExistingMembershipException("Member already has a membership.");
+                    throw new ExistingMembershipException(Teretana.Resources.Resources.Existing_membership);
                 new NewMembershipWindow(memberId, memberName, isEditMembership).ShowDialog();
             }
             catch (ExistingMembershipException ex)
@@ -433,7 +444,7 @@ namespace Teretana
             }
             catch (NullReferenceException ex)
             {
-                MessageBox.Show("Select a member first.");
+                MessageBox.Show(Teretana.Resources.Resources.Select_member);
             }
         }
         private void EditMembership()
@@ -448,7 +459,7 @@ namespace Teretana
                 memberName = ((BasicMemberInfo)membersListView.SelectedItem).Name;
                 if(paidAtLbl.Content.ToString() == string.Empty)
                 {
-                    throw new Exception("First create a new membership.");
+                    throw new Exception(Teretana.Resources.Resources.Create_membership);
                 }
                 else
                 {
@@ -458,7 +469,7 @@ namespace Teretana
             }
             catch (NullReferenceException ex)
             {
-                MessageBox.Show("Select a member first.");
+                MessageBox.Show(Teretana.Resources.Resources.Select_member);
             }
             catch (Exception ex)
             {
@@ -482,7 +493,7 @@ namespace Teretana
 
                 if (cmd.ExecuteNonQuery() == -1)
                 {
-                    MessageBox.Show("Failed to start a training.");
+                    MessageBox.Show(Teretana.Resources.Resources.Training_start_error);
                 }
                 else
                 {
@@ -493,7 +504,7 @@ namespace Teretana
             }
             else
             {
-                MessageBox.Show("This member has no membership.");
+                MessageBox.Show(Teretana.Resources.Resources.Create_membership);
             }
         }
         private void StopTrainingBtn_Click(object sender, RoutedEventArgs e)
@@ -522,17 +533,17 @@ namespace Teretana
                     }
                     else
                     {
-                        MessageBox.Show("Unable to stop the training.");
+                        MessageBox.Show(Teretana.Resources.Resources.Training_stop_err);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("This training has already ended.");
+                    MessageBox.Show(Teretana.Resources.Resources.Training_ended_errr);
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("You have to select a training to end first.");
+                MessageBox.Show(Teretana.Resources.Resources.Select_training);
             }
             
             teretanaDB.Close();
@@ -555,32 +566,27 @@ namespace Teretana
                     cmd.CommandText = querry;
                     if (cmd.ExecuteNonQuery() == -1)
                     {
-                        MessageBox.Show("Unable to set image");
+                        MessageBox.Show(Teretana.Resources.Resources.Image_set_error);
                     }
                     else
                     {
                         avatarImage.Source = new BitmapImage(new Uri(imgPath));
-                        MessageBox.Show("Image succesfully set.");
+                        MessageBox.Show(Teretana.Resources.Resources.Image_set_succesfully);
                     }
                 }
             }
             catch (NotSupportedException)
             {
-                MessageBox.Show("File format not supported.");
+                MessageBox.Show(Teretana.Resources.Resources.Unsuported_format);
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("First select a member.");
+                MessageBox.Show(Teretana.Resources.Resources.Select_member);
             }
             finally
             {
                 teretanaDB.Close();
             }
-        }
-
-        private void Refresh()
-        {
-
         }
     }
 }

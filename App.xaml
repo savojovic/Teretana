@@ -17,4 +17,5 @@
             <Setter Property="Content" Value="POWER GYM"/>
         </Style>
     </Application.Resources>
+    
 </Application>
