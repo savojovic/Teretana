@@ -4,9 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Teretana"
+        xmlns:rs="clr-namespace:Teretana.Resources"
         mc:Ignorable="d"
-        Title="SettingsWindow" Height="450" Width="800">
-    <Grid>
+        Title="SettingsWindow" Height="450" Width="331">
+    <Grid HorizontalAlignment="Center" Width="331" >
+        <Grid.Background>
+            <ImageBrush ImageSource="/assets/background.png"/>
+        </Grid.Background>
+        <GroupBox Background="White" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" Height="100" Margin="15,10,15,0"  VerticalAlignment="Top" Width="300">
+            <Grid>
+                <Label FontWeight="Bold" Content="{x:Static rs:Resources.Language_lbl}" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="20,10,0,0"/>
+                <RadioButton x:Name="serbianRB" GroupName="lang" Content="Srpski" HorizontalAlignment="Left" Margin="20,40,0,0" VerticalAlignment="Top" Checked="serbianRB_Checked" />
+                <RadioButton x:Name="englishRB" GroupName="lang" Content="English" HorizontalAlignment="Left" Margin="20,60,0,0" VerticalAlignment="Top" Checked="englishRB_Checked"/>
+            </Grid>
+        </GroupBox>
+        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Width="54" x:Name="saveBtn" Content="{x:Static rs:Resources.Save_btn}" HorizontalAlignment="Right" Margin="0,0,80,10" VerticalAlignment="Bottom" Click="saveBtn_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Width="54" x:Name="deleteBtn" Content="{x:Static rs:Resources.Delete_btn}" HorizontalAlignment="Right" Margin="0,0,20,10" VerticalAlignment="Bottom" Click="deleteBtn_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         
+
     </Grid>
 </Window>

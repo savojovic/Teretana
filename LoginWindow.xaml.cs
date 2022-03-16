@@ -31,7 +31,7 @@ namespace Teretana
         public LoginWindow()
         {
             //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("sr");
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("sr");
+            //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("sr");
             InitializeComponent();
         }
 
@@ -132,6 +132,7 @@ namespace Teretana
         private void settingsBtn_Click(object sender, RoutedEventArgs e)
         {
             new SettingsWindow().Show();
+            Close();
         }
     }
 }

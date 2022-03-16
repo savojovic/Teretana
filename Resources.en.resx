@@ -195,6 +195,9 @@
   <data name="Jmbg_lbl" xml:space="preserve">
     <value>JMBG</value>
   </data>
+  <data name="Language_lbl" xml:space="preserve">
+    <value>Select your prefered language</value>
+  </data>
   <data name="Login_btn" xml:space="preserve">
     <value>LOGIN</value>
   </data>

@@ -557,6 +557,13 @@ namespace Teretana.Resources
                 return ResourceManager.GetString("Unsuported_format", resourceCulture);
             }
         }
+        public static string Language_lbl
+        {
+            get
+            {
+                return ResourceManager.GetString("Language_lbl", resourceCulture);
+            }
+        }
         
     }
 }

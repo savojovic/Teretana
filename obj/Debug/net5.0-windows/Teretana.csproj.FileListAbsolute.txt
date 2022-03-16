@@ -65,3 +65,5 @@ C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Deb
 C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\Teretana.pdb
 C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\Teretana.genruntimeconfig.cache
 C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\ref\Teretana.dll
+C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\SettingsWindow.g.cs
+C:\Users\jsavic\Documents\FaxProjects\HCI\WPF_Teretana\Teretana\Teretana\obj\Debug\net5.0-windows\SettingsWindow.baml
