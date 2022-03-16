@@ -8,6 +8,14 @@
        
         mc:Ignorable="d"
         Title="Teretana" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="0,0,10,0">
         <Grid.Background>
             <ImageBrush ImageSource="/assets/background.png"/>
@@ -55,25 +63,14 @@
         </Border>
         <Label Content="{x:Static rs:Resources.Password_lbl}" HorizontalAlignment="Left" Margin="512,212,0,0" VerticalAlignment="Top" FontStyle="Normal" Foreground="#FF736A6A" RenderTransformOrigin="0.539,1.318"/>
         <Button
+            Style="{StaticResource GreenBtnStyle}"
             x:Name="loginBtn"
-            Content="{x:Static rs:Resources.Login_btn}" Background="#49D191" HorizontalAlignment="Left" 
+            Content="{x:Static rs:Resources.Login_btn}" HorizontalAlignment="Left" 
             Margin="545,302,0,0" VerticalAlignment="Top" Height="28" Width="152"
-            RenderTransformOrigin="0.5,1.31" BorderBrush="Black" BorderThickness="2" Click="Login_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
+            RenderTransformOrigin="0.5,1.31" Click="Login_Click">
         </Button>
-        <Button x:Name="settingsBtn" Background="#49D191" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Margin="740,10,0,0" VerticalAlignment="Top" Click="settingsBtn_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
+        <Button x:Name="settingsBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="740,10,0,0" VerticalAlignment="Top" Click="settingsBtn_Click">
             <Image Source="assets/settings.png" Height="19" Width="25"/>
         </Button>
-
-
     </Grid>
 </Window>

@@ -29,11 +29,17 @@ namespace Teretana
         public NewMembershipWindow(int memberId)
         {
             InitializeComponent();
-
+            SetBtnStyles();
+        }
+        private void SetBtnStyles()
+        {
+            saveBtn.Style = SettingsWindow.btnStyle;
+            cancelButton.Style = SettingsWindow.btnStyle;
         }
         public NewMembershipWindow(int memberId, string memberName, bool isEdit)
         {
             InitializeComponent();
+            SetBtnStyles();
             this.memberId = memberId;
             this.memberName = memberName;
             nameLbl.Content = memberName;

@@ -4,8 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Teretana"
+        xmlns:rs="clr-namespace:Teretana.Resources"
+        
         mc:Ignorable="d"
         Title="NewMembershipWindow" Height="361" Width="360">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="0,0,0,-6" >
         <Grid.Background>
             <ImageBrush ImageSource="/assets/background.png"/>
@@ -25,20 +35,9 @@
                 <TextBox HorizontalAlignment="Left" x:Name="priceTextBox" Margin="154,147,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="24"/>
             </Grid>
         </GroupBox>
-        <Button Background="#49D191" BorderBrush="Black" BorderThickness="2" x:Name="saveBtn" Content="SAVE" HorizontalAlignment="Left" Margin="208,274,0,0"  Width="54" VerticalAlignment="Top" Click="saveBtn_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button Background="#49D191" BorderBrush="Black" BorderThickness="2" x:Name="cancelButton" Content="CANCEL" HorizontalAlignment="Left" Margin="267,274,0,0"  Width="54" VerticalAlignment="Top" Click="cancelButton_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+        <Button Style="{StaticResource GreenBtnStyle}" x:Name="saveBtn" Content="SAVE" HorizontalAlignment="Left" Margin="208,274,0,0"  Width="54" VerticalAlignment="Top" Click="saveBtn_Click"/>
+
+        <Button Style="{StaticResource GreenBtnStyle}" x:Name="cancelButton" Content="CANCEL" HorizontalAlignment="Left" Margin="267,274,0,0"  Width="54" VerticalAlignment="Top" Click="cancelButton_Click"/>
 
     </Grid>
 </Window>

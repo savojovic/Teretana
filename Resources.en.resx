@@ -126,6 +126,15 @@
   <data name="City_lbl" xml:space="preserve">
     <value>City</value>
   </data>
+  <data name="Color_blue" xml:space="preserve">
+    <value>Blue</value>
+  </data>
+  <data name="Color_green" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="Color_orange" xml:space="preserve">
+    <value>Orange</value>
+  </data>
   <data name="Continue_prompt" xml:space="preserve">
     <value>Da li želite da nastavite?  </value>
   </data>
@@ -248,6 +257,9 @@
   </data>
   <data name="Stop_btn" xml:space="preserve">
     <value>STOP</value>
+  </data>
+  <data name="Style_lbl" xml:space="preserve">
+    <value>Select your prefered button color</value>
   </data>
   <data name="Succesfull_deletion" xml:space="preserve">
     <value>Uspješno brisanje.</value>

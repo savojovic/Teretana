@@ -126,6 +126,15 @@
   <data name="City_lbl" xml:space="preserve">
     <value>Grad</value>
   </data>
+  <data name="Color_blue" xml:space="preserve">
+    <value>Plava</value>
+  </data>
+  <data name="Color_green" xml:space="preserve">
+    <value>Zelena</value>
+  </data>
+  <data name="Color_orange" xml:space="preserve">
+    <value>Narandžasta</value>
+  </data>
   <data name="Continue_prompt" xml:space="preserve">
     <value>Da li želite da nastavite?</value>
   </data>
@@ -248,6 +257,9 @@
   </data>
   <data name="Stop_btn" xml:space="preserve">
     <value>STOP</value>
+  </data>
+  <data name="Style_lbl" xml:space="preserve">
+    <value>Odaberite željenu boju dugmića</value>
   </data>
   <data name="Succesfull_deletion" xml:space="preserve">
     <value>Uspješno brisanje.</value>

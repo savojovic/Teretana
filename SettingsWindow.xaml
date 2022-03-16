@@ -4,35 +4,45 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Teretana"
+        
         xmlns:rs="clr-namespace:Teretana.Resources"
         mc:Ignorable="d"
         Title="SettingsWindow" Height="450" Width="331">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid HorizontalAlignment="Center" Width="331" >
         <Grid.Background>
             <ImageBrush ImageSource="/assets/background.png"/>
         </Grid.Background>
-        <GroupBox Background="White" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" Height="100" Margin="15,10,15,0"  VerticalAlignment="Top" Width="300">
+        <GroupBox Background="White" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" Height="100" Margin="0,33,0,0"  VerticalAlignment="Top" Width="300">
             <Grid>
                 <Label FontWeight="Bold" Content="{x:Static rs:Resources.Language_lbl}" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="20,10,0,0"/>
                 <RadioButton x:Name="serbianRB" GroupName="lang" Content="Srpski" HorizontalAlignment="Left" Margin="20,40,0,0" VerticalAlignment="Top" Checked="serbianRB_Checked" />
                 <RadioButton x:Name="englishRB" GroupName="lang" Content="English" HorizontalAlignment="Left" Margin="20,60,0,0" VerticalAlignment="Top" Checked="englishRB_Checked"/>
             </Grid>
         </GroupBox>
-        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Width="54" x:Name="saveBtn" Content="{x:Static rs:Resources.Save_btn}" HorizontalAlignment="Right" Margin="0,0,80,10" VerticalAlignment="Bottom" Click="saveBtn_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Width="54" x:Name="deleteBtn" Content="{x:Static rs:Resources.Delete_btn}" HorizontalAlignment="Right" Margin="0,0,20,10" VerticalAlignment="Bottom" Click="deleteBtn_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        
+        <GroupBox Background="White" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center" Height="124"  VerticalAlignment="Center" Width="300">
+            <Grid>
+                <Label FontWeight="Bold" Content="{x:Static rs:Resources.Style_lbl}" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="20,10,0,0"/>
+                <RadioButton x:Name="greenRB" GroupName="btnColor" Content="{x:Static rs:Resources.Color_green}" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Checked="greenRB_Checked"/>
+                <RadioButton x:Name="blueRB" GroupName="btnColor" Content="{x:Static rs:Resources.Color_blue}" HorizontalAlignment="Left" Margin="20,72,0,0" VerticalAlignment="Top" Checked="blueRB_Checked"/>
+                <RadioButton x:Name="orangeRB" GroupName="btnColor" Content="{x:Static rs:Resources.Color_orange}" HorizontalAlignment="Left" Margin="20,92,0,0" VerticalAlignment="Top" Checked="orangeRB_Checked"/>
+
+            </Grid>
+
+        </GroupBox>
+        <Button Style="{StaticResource GreenBtnStyle}" Width="54" x:Name="saveBtn" Content="{x:Static rs:Resources.Save_btn}" HorizontalAlignment="Right" Margin="0,0,80,10" VerticalAlignment="Bottom" Click="saveBtn_Click"/>
+
+        <Button Style="{StaticResource GreenBtnStyle}" Width="54" x:Name="deleteBtn" Content="{x:Static rs:Resources.Delete_btn}" HorizontalAlignment="Right" Margin="0,0,20,10" VerticalAlignment="Bottom" Click="deleteBtn_Click"/>
+
+
+
 
     </Grid>
 </Window>

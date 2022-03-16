@@ -16,6 +16,21 @@ namespace Teretana
             InitializeComponent();
             LoadMembers();
             SetElementsLock(false);
+            SetBtnStyles();
+        }
+        private void SetBtnStyles()
+        {
+            addBtn.Style = SettingsWindow.btnStyle;
+            editBtn.Style = SettingsWindow.btnStyle;
+            deleteBtn.Style = SettingsWindow.btnStyle;
+            saveBtn.Style = SettingsWindow.btnStyle;
+            logoutBtn.Style = SettingsWindow.btnStyle;
+            newMembershipBtn.Style = SettingsWindow.btnStyle;
+            extendMembershipBtn.Style = SettingsWindow.btnStyle;
+            revokeBtn.Style = SettingsWindow.btnStyle;
+            startTrainingBtn.Style = SettingsWindow.btnStyle;
+            stopTrainingBtn.Style = SettingsWindow.btnStyle;
+            avatarBtn.Style = SettingsWindow.btnStyle;
         }
         private void SetElementsLock(bool isUnLocked)
         {

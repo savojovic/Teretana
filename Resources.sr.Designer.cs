@@ -564,6 +564,34 @@ namespace Teretana.Resources
                 return ResourceManager.GetString("Language_lbl", resourceCulture);
             }
         }
+        public static string Style_lbl
+        {
+            get
+            {
+                return ResourceManager.GetString("Style_lbl", resourceCulture);
+            }
+        }
+        public static string Color_green
+        {
+            get
+            {
+                return ResourceManager.GetString("Color_green", resourceCulture);
+            }
+        }
+        public static string Color_blue
+        {
+            get
+            {
+                return ResourceManager.GetString("Color_blue", resourceCulture);
+            }
+        }
+        public static string Color_orange
+        {
+            get
+            {
+                return ResourceManager.GetString("Color_orange", resourceCulture);
+            }
+        }
         
     }
 }

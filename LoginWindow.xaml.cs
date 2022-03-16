@@ -21,6 +21,8 @@ namespace Teretana
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// TODO: Prilikom promjene stila treba da se unese username i password pa da se sacuvaju promjene za korisnika u db
+    /// kad se uloguje, objekat styles treba napraviti tako da zadovoljava konfig iz baze
     public partial class LoginWindow : Window
     {
         string noEmptyFields = "You must enter your Username and Password!";
@@ -30,11 +32,22 @@ namespace Teretana
         
         public LoginWindow()
         {
-            //CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("sr");
-            //System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("sr");
+            if(SettingsWindow.btnStyle == null)
+                LoadBtnStyle();
             InitializeComponent();
+            SetBtnStyles();
         }
-
+        private void SetBtnStyles()
+        {
+            loginBtn.Style = SettingsWindow.btnStyle;
+            settingsBtn.Style = SettingsWindow.btnStyle;
+        }
+        private void LoadBtnStyle()
+        {
+            ResourceDictionary resourceDictionary = new ResourceDictionary();
+            resourceDictionary.Source = new Uri("/Styles.xaml", UriKind.RelativeOrAbsolute);
+            SettingsWindow.btnStyle = (Style)resourceDictionary["GreenBtnStyle"];
+        }
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             string username = usernameTextBox.Text;

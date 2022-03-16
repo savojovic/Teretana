@@ -18,9 +18,19 @@ namespace Teretana
         public AdminWindow()
         {
             InitializeComponent();
+            SetBtnStyles();
             LoadEmployees();
             LockAllFields(true);
             cityComboBox.ItemsSource = EmployeeWindow.GetAllCities();
+        }
+        private void SetBtnStyles()
+        {
+            logoutBtn.Style = SettingsWindow.btnStyle;
+            addBtn.Style = SettingsWindow.btnStyle;
+            editBtn.Style = SettingsWindow.btnStyle;
+            removeBtn.Style = SettingsWindow.btnStyle;
+            saveBtn.Style = SettingsWindow.btnStyle;
+            avatarImgBtn.Style = SettingsWindow.btnStyle;
         }
         private void LoadEmployees()
         {

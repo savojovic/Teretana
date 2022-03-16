@@ -7,6 +7,14 @@
         xmlns:rs="clr-namespace:Teretana.Resources"
         mc:Ignorable="d"
         Title="EmployeeWindow" Height="650" Width="1000">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles.xaml">
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid >
         <Grid.Background>
             <ImageBrush ImageSource="/assets/background.png"/>
@@ -52,20 +60,8 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" x:Name="startTrainingBtn" Content="{x:Static rs:Resources.Start_btn}" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54" Click="StartTrainingBtn_Click">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="10"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
-                        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Stop_btn}" HorizontalAlignment="Left" Margin="177,201,0,0" VerticalAlignment="Top" Width="54" Click="StopTrainingBtn_Click">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="10"/>
-                                </Style>
-                            </Button.Resources>
-                        </Button>
+                        <Button Style="{StaticResource GreenBtnStyle}" x:Name="startTrainingBtn" Content="{x:Static rs:Resources.Start_btn}" HorizontalAlignment="Left" Margin="118,201,0,0" VerticalAlignment="Top" Width="54" Click="StartTrainingBtn_Click"/>
+                        <Button Style="{StaticResource GreenBtnStyle}" x:Name="stopTrainingBtn" Content="{x:Static rs:Resources.Stop_btn}" HorizontalAlignment="Left" Margin="177,201,0,0" VerticalAlignment="Top" Width="54" Click="StopTrainingBtn_Click"/>
                         <Label Content="{x:Static rs:Resources.Start_lbl}" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
@@ -81,27 +77,9 @@
 
                         <GroupBox Margin="237,10,0,19">
                             <Grid Height="105" >
-                                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" x:Name="newMembershipBtn" Content="{x:Static rs:Resources.New_btn}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="54" Margin="0,10,0,0" Click="newMembershipsBtn_Click">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="10"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-                                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" x:Name="extendMembershipBtn" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="54" Margin="0,37,0,0" Click="newMembershipsBtn_Click">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="10"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-                                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Revoke_btn}" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="54" Margin="0,64,0,0" RenderTransformOrigin="1.037,0.561" Click="newMembershipsBtn_Click">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="10"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
+                                <Button Style="{StaticResource GreenBtnStyle}"  x:Name="newMembershipBtn" Content="{x:Static rs:Resources.New_btn}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="54" Margin="0,10,0,0" Click="newMembershipsBtn_Click"/>
+                                <Button Style="{StaticResource GreenBtnStyle}" x:Name="extendMembershipBtn" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="54" Margin="0,37,0,0" Click="newMembershipsBtn_Click"/>
+                                <Button Style="{StaticResource GreenBtnStyle}" x:Name="revokeBtn" Content="{x:Static rs:Resources.Revoke_btn}" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="54" Margin="0,64,0,0" RenderTransformOrigin="1.037,0.561" Click="newMembershipsBtn_Click"/>
                             </Grid>
                         </GroupBox>
 
@@ -109,12 +87,7 @@
                     </Grid>
                 </GroupBox>
                 <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="90,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
-                <Button BorderBrush="Black" BorderThickness="2" Background="#49D191"  HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Height="23" Width="27" Click="Button_Click_1">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
+                <Button x:Name="avatarBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="237,139,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="15" Height="23" Width="27" Click="Button_Click_1">
                     <Image Source="assets/person.png" Height="13" Width="17"/>
                 </Button>
 
@@ -123,40 +96,15 @@
 
         </GroupBox>
         <Label Content="{x:Static rs:Resources.Members_lbl}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Add_btn}" x:Name="addBtn" HorizontalAlignment="Left" Margin="215,46,0,0" VerticalAlignment="Top" Width="54" Click="Add_Button_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54" Click="EditButton_Click" x:Name="editBtn">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Delete_btn}" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54" Click="Delete_Button_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button Content="{x:Static rs:Resources.Logout_btn}" Background="#4AB191" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Margin="920,46,0,0" VerticalAlignment="Top" Width="54" Click="Button_Click" Height="25">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button BorderBrush="Black" BorderThickness="2" Background="#49D191" Content="{x:Static rs:Resources.Save_btn}" HorizontalAlignment="Left" Margin="392,46,0,0" VerticalAlignment="Top" Width="54" Height="22" x:Name="saveBtn" Click="saveBtn_Click">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="10"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+        <Button Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Add_btn}" x:Name="addBtn" HorizontalAlignment="Left" Margin="215,46,0,0" VerticalAlignment="Top" Width="54" Click="Add_Button_Click"/>
+
+        <Button Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54" Click="EditButton_Click" x:Name="editBtn"/>
+
+        <Button x:Name="deleteBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Delete_btn}" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54" Click="Delete_Button_Click"/>
+
+        <Button x:Name="logoutBtn" Content="{x:Static rs:Resources.Logout_btn}"  Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="920,46,0,0" VerticalAlignment="Top" Width="54" Click="Button_Click" Height="25"/>
+
+        <Button  Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Save_btn}" HorizontalAlignment="Left" Margin="392,46,0,0" VerticalAlignment="Top" Width="54" Height="22" x:Name="saveBtn" Click="saveBtn_Click"/>
+
     </Grid>
 </Window>

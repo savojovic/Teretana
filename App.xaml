@@ -7,7 +7,12 @@
 
     <Application.Resources>
         <FontFamily x:Key="SFSports">./fonts/#SF Sports Night Upright</FontFamily>
+        <Style x:Key="Font_Arial" TargetType="Label">
+            <Setter Property="FontFamily" Value="Arial"/>
+        </Style>
+        <Style x:Key="Font_Times_New_Roman" TargetType="Label">
 
+        </Style>
         <Style x:Key="GymNameLabel" TargetType="Label">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="{DynamicResource SFSports}"/>

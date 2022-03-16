@@ -23,9 +23,13 @@ namespace Teretana
     {
         bool IsCheckedFromCode = false;
         CultureInfo oldCultureInfo = Thread.CurrentThread.CurrentCulture;
+
+        public static Style btnStyle;
         public SettingsWindow()
         {
             InitializeComponent();
+            SetBtnStyles();
+
             oldCultureInfo = Thread.CurrentThread.CurrentCulture;
             string language = oldCultureInfo.Name;
             if (language.Contains("en"))
@@ -39,7 +43,11 @@ namespace Teretana
                 serbianRB.IsChecked = true;
             }
         }
-
+        private void SetBtnStyles()
+        {
+            saveBtn.Style = btnStyle;
+            deleteBtn.Style = btnStyle;
+        }
         private void serbianRB_Checked(object sender, RoutedEventArgs e)
         {
             if ((sender as RadioButton).IsLoaded)
@@ -74,6 +82,32 @@ namespace Teretana
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(oldCultureInfo.Name);
             new LoginWindow().Show();
             Close();
+        }
+
+        private void greenRB_Checked(object sender, RoutedEventArgs e)
+        {
+            LoadBtnStyle();
+            Setter background = (Setter)SettingsWindow.btnStyle.Setters[1];
+            background.Value = (SolidColorBrush)new BrushConverter().ConvertFrom("#49D191");
+        }
+        
+        private void blueRB_Checked(object sender, RoutedEventArgs e)
+        {
+            LoadBtnStyle();
+            Setter background = (Setter)SettingsWindow.btnStyle.Setters[1];
+            background.Value = (SolidColorBrush)new BrushConverter().ConvertFrom("#ADD8E6");
+        }
+        private void orangeRB_Checked(object sender, RoutedEventArgs e)
+        {
+            LoadBtnStyle();
+            Setter background = (Setter)SettingsWindow.btnStyle.Setters[1];
+            background.Value = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA500");
+        }
+        public void LoadBtnStyle()
+        {
+            ResourceDictionary resourceDictionary = new ResourceDictionary();
+            resourceDictionary.Source = new Uri("/Styles.xaml", UriKind.RelativeOrAbsolute);
+            SettingsWindow.btnStyle = (Style)resourceDictionary["GreenBtnStyle"];
         }
     }
 }
