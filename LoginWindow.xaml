@@ -69,8 +69,5 @@
             Margin="545,302,0,0" VerticalAlignment="Top" Height="28" Width="152"
             RenderTransformOrigin="0.5,1.31" Click="Login_Click">
         </Button>
-        <Button x:Name="settingsBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="740,10,0,0" VerticalAlignment="Top" Click="settingsBtn_Click">
-            <Image Source="assets/settings.png" Height="19" Width="25"/>
-        </Button>
     </Grid>
 </Window>

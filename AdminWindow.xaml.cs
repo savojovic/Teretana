@@ -2,9 +2,12 @@
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Teretana
@@ -15,13 +18,55 @@ namespace Teretana
     public partial class AdminWindow : Window
     {
         MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
-        public AdminWindow()
+        string username;
+        long id;
+        public AdminWindow(long id, string username)
         {
+            this.id = id;
+            this.username = username;
+            LoadUserStyle(username);
             InitializeComponent();
             SetBtnStyles();
             LoadEmployees();
             LockAllFields(true);
             cityComboBox.ItemsSource = EmployeeWindow.GetAllCities();
+        }
+        public static void LoadUserStyle(string username)
+        {
+            MySqlConnection conn = new MySqlConnection(Config.dbConfigString);
+            conn.Open();
+            try
+            {
+                string querry = $"select stil, jezik from podesavanja where zaposleni_idosoba='{LoginWindow.GetUserId(username)}'";
+                
+                MySqlCommand cmd = conn.CreateCommand();
+                cmd.CommandText = querry;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                reader.Read();
+                string color = reader.GetString(0);
+                string lang = reader.GetString(1);
+
+                SettingsWindow.LoadBtnStyle();
+                Setter background = (Setter)SettingsWindow.btnStyle.Setters[1];
+                background.Value = (SolidColorBrush)new BrushConverter().ConvertFrom(color);
+
+                //Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+                conn.Close();
+            }
+            catch (Exception)
+            {
+                conn.Close();
+                SettingsWindow.SetDefaultStyle(username);
+                LoadUserStyle(username);
+            }
+            
+        }
+        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool isAdmin = true;
+            new SettingsWindow(id,username, isAdmin).Show();
+            Close();
         }
         private void SetBtnStyles()
         {
@@ -31,6 +76,7 @@ namespace Teretana
             removeBtn.Style = SettingsWindow.btnStyle;
             saveBtn.Style = SettingsWindow.btnStyle;
             avatarImgBtn.Style = SettingsWindow.btnStyle;
+            settingsBtn.Style = SettingsWindow.btnStyle;
         }
         private void LoadEmployees()
         {

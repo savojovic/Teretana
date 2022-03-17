@@ -1,0 +1,49 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Teretana/1.0.0": {
+        "dependencies": {
+          "MySqlConnector": "2.1.7"
+        },
+        "runtime": {
+          "Teretana.dll": {}
+        },
+        "resources": {
+          "en/Teretana.resources.dll": {
+            "locale": "en"
+          },
+          "sr/Teretana.resources.dll": {
+            "locale": "sr"
+          }
+        }
+      },
+      "MySqlConnector/2.1.7": {
+        "runtime": {
+          "lib/net5.0/MySqlConnector.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.7.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Teretana/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MySqlConnector/2.1.7": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QUT9GBKp1kNwmR4fCpBlhq2icoYPdt0rZMj0Qx9sHkx1kuN2vibP5eevHNeQ2Qk7QC3ci2zrcf4ZrCHhBl4I2Q==",
+      "path": "mysqlconnector/2.1.7",
+      "hashPath": "mysqlconnector.2.1.7.nupkg.sha512"
+    }
+  }
+}

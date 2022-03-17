@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,10 +30,10 @@ namespace Teretana
         string wrnogCredentials = "Username and password do not match!";
 
         MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
-        
+
         public LoginWindow()
         {
-            if(SettingsWindow.btnStyle == null)
+            if (SettingsWindow.btnStyle == null)
                 LoadBtnStyle();
             InitializeComponent();
             SetBtnStyles();
@@ -40,7 +41,6 @@ namespace Teretana
         private void SetBtnStyles()
         {
             loginBtn.Style = SettingsWindow.btnStyle;
-            settingsBtn.Style = SettingsWindow.btnStyle;
         }
         private void LoadBtnStyle()
         {
@@ -59,23 +59,57 @@ namespace Teretana
             }
             else if (isAuthorized(username, password))
             {
-                OpenNewWindow(IsAdmin(username));
+                //LoadStyle(username);
+                //SaveStyle(username);
+                OpenNewWindow(GetUserId(username), username, IsAdmin(username));
             }
             else
             {
                 MessageBox.Show(wrnogCredentials);
             }
         }
-        private void OpenNewWindow(bool isAdmin)
+        private void LoadStyle(string username)
+        {
+            string querry = $"select stil, jezik from podesavanja where zaposleni_idosoba='{GetUserId(username)}'";
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            string color = reader.GetString(0);
+            string lang = reader.GetString(1);
+
+            SettingsWindow.LoadBtnStyle();
+            Setter background = (Setter)SettingsWindow.btnStyle.Setters[1];
+            background.Value = (SolidColorBrush)new BrushConverter().ConvertFrom(color);
+
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo(lang);
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo(lang);
+            teretanaDB.Close();
+        }
+        public static long GetUserId(string username)
+        {
+            MySqlConnection con = new MySqlConnection(Config.dbConfigString);
+            con.Open();
+            string querry = $"select zaposleni_idosoba from zaposleni where username='{username}'";
+            MySqlCommand cmd = con.CreateCommand();
+            cmd.CommandText = querry;
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            long id = reader.GetInt64(0);
+            con.Close();
+            return id;
+        }
+        private void OpenNewWindow(long id, string username, bool isAdmin)
         {
             if (isAdmin)
             {
-                AdminWindow adminWindow = new AdminWindow();
+                AdminWindow adminWindow = new AdminWindow(id, username);
                 adminWindow.Show();
             }
             else
             {
-                EmployeeWindow employeeWindow = new EmployeeWindow();
+                EmployeeWindow employeeWindow = new EmployeeWindow(id, username);
                 employeeWindow.Show();
             }
             this.Close();
@@ -113,7 +147,7 @@ namespace Teretana
             string realhash;
             try
             {
-             realhash = reader.GetString("PassHash");
+                realhash = reader.GetString("PassHash");
                 reader.Close();
                 teretanaDB.Close();
                 if (passhash.Equals(realhash))
@@ -127,25 +161,19 @@ namespace Teretana
                 return false;
             }
         }
-       
+
 
         private void credentialsBox_KeyDown(object sender, KeyEventArgs e)
         {
             string username = usernameTextBox.Text;
             if (e.Key == Key.Enter && isAuthorized(username, passwordBox.Password.ToString()))
             {
-                OpenNewWindow(IsAdmin(username));
+                OpenNewWindow(GetUserId(username), username, IsAdmin(username));
             }
-            else if(e.Key == Key.Enter)
+            else if (e.Key == Key.Enter)
             {
                 MessageBox.Show(wrnogCredentials);
             }
-        }
-
-        private void settingsBtn_Click(object sender, RoutedEventArgs e)
-        {
-            new SettingsWindow().Show();
-            Close();
         }
     }
 }

@@ -19,6 +19,9 @@
         <Grid.Background>
             <ImageBrush ImageSource="/assets/background.png"/>
         </Grid.Background>
+        <Button x:Name="settingsBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="943,10,0,0" VerticalAlignment="Top" Click="settingsBtn_Click">
+            <Image Source="assets/settings.png" Height="19" Width="25"/>
+        </Button>
         <ListView BorderBrush="Black" BorderThickness="2" x:Name="membersListView" Margin="10,78,790,78" SelectionChanged="membersListBox_SelectionChanged">
             <ListView.View>
                 <GridView>

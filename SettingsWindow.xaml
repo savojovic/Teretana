@@ -37,6 +37,7 @@
             </Grid>
 
         </GroupBox>
+       
         <Button Style="{StaticResource GreenBtnStyle}" Width="54" x:Name="saveBtn" Content="{x:Static rs:Resources.Save_btn}" HorizontalAlignment="Right" Margin="0,0,80,10" VerticalAlignment="Bottom" Click="saveBtn_Click"/>
 
         <Button Style="{StaticResource GreenBtnStyle}" Width="54" x:Name="deleteBtn" Content="{x:Static rs:Resources.Delete_btn}" HorizontalAlignment="Right" Margin="0,0,20,10" VerticalAlignment="Bottom" Click="deleteBtn_Click"/>

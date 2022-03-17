@@ -7,7 +7,7 @@
         xmlns:rs="clr-namespace:Teretana.Resources"
         
         mc:Ignorable="d"
-        Title="AdminWindow" Height="506" Width="830">
+        Title="AdminWindow" Height="524" Width="830">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,6 +20,9 @@
         <Grid.Background>
             <ImageBrush ImageSource="/assets/background.png"/>
         </Grid.Background>
+        <Button x:Name="settingsBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="779,6,0,0" VerticalAlignment="Top" Click="settingsBtn_Click">
+            <Image Source="assets/settings.png" Height="19" Width="25"/>
+        </Button>
         <ListView x:Name="employeeListView" BorderBrush="Black" BorderThickness="2" Margin="10,36,0,78" Width="210" HorizontalAlignment="Left" SelectionChanged="employeeListView_SelectionChanged">
             <ListView.View>
                 <GridView>
@@ -32,28 +35,26 @@
         </ListView>
         <Label Content="{x:Static rs:Resources.Employees_lbl}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
 
-        <GroupBox Header="{x:Static rs:Resources.Employee_info_header}" Margin="251,10,10,14">
+        <GroupBox Header="{x:Static rs:Resources.Employee_info_header}" Margin="251,36,10,4">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <GroupBox Header="{x:Static rs:Resources.Info_header}" Margin="0,171,274,37">
+                <GroupBox Header="{x:Static rs:Resources.Info_header}" Margin="0,198,295,10">
                     <Grid Margin="0,0,-2,0">
+
                         <Label Content="Name" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,15,0,0"/>
                         <Label Content="Surname" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,44,0,0"/>
                         <Label Content="Date of birth" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,73,0,0"/>
                         <Label Content="JMBG" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,102,0,0"/>
                         <Label Content="Email" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,128,0,0"/>
-                        <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Margin="94,15,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="24"/>
-                        <TextBox x:Name="surnameTextBox" HorizontalAlignment="Left" Margin="94,45,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="24"/>
-                        <TextBox x:Name="jmbgTextBox" HorizontalAlignment="Left" Margin="94,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
-                        <DatePicker x:Name="dateofBirthDatePicker" HorizontalAlignment="Left" Margin="94,74,0,0" VerticalAlignment="Top" Width="120"/>
-                        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Margin="94,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24"/>
-                        <ComboBox x:Name="cityComboBox" HorizontalAlignment="Left" Margin="94,162,0,0" VerticalAlignment="Top" Width="120"/>
+                        <TextBox x:Name="nameTextBox" HorizontalAlignment="Left" Margin="94,15,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="24" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="surnameTextBox" HorizontalAlignment="Left" Margin="94,45,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120" Height="24" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="jmbgTextBox" HorizontalAlignment="Left" Margin="94,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" Grid.ColumnSpan="2"/>
+                        <DatePicker x:Name="dateofBirthDatePicker" HorizontalAlignment="Left" Margin="94,74,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+                        <TextBox x:Name="emailTextBox" HorizontalAlignment="Left" Margin="94,133,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" Grid.ColumnSpan="2"/>
+                        <ComboBox x:Name="cityComboBox" HorizontalAlignment="Left" Margin="94,162,0,0" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
                         <Label Content="City" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="{x:Static rs:Resources.Employment_info_header}" Margin="278,172,0,37">
+                <GroupBox Header="{x:Static rs:Resources.Employment_info_header}" Margin="257,198,-1,10">
                     <Grid>
                         <Label Content="{x:Static rs:Resources.Employment_date_lbl}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                         <Label Content="{x:Static rs:Resources.Salary_lbl}" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
@@ -71,18 +72,18 @@
 
                     </Grid>
                 </GroupBox>
-                <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="190,10,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
-                <CheckBox x:Name="isAdminCheckBox" Content="{x:Static rs:Resources.IsAdmin_cb}" HorizontalAlignment="Left" Margin="454,10,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="avatarImgBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="342,134,0,0" VerticalAlignment="Top" Height="23" Width="27" Click="avatarImgBtn_Click">
+                <Image x:Name="avatarImage" HorizontalAlignment="Left" Height="147" Margin="195,14,0,0" VerticalAlignment="Top" Width="160" Source="/avatar.png"/>
+                <CheckBox x:Name="isAdminCheckBox" Content="{x:Static rs:Resources.IsAdmin_cb}" HorizontalAlignment="Left" Margin="427,25,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                <Button x:Name="avatarImgBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="315,161,0,0" VerticalAlignment="Top" Height="23" Width="27" Click="avatarImgBtn_Click" Grid.Column="1">
                     <Image Source="assets/person.png" Height="13" Width="17"/>
                 </Button>
             </Grid>
         </GroupBox>
-        <Button x:Name="addBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Add_btn}" HorizontalAlignment="Left" Margin="10,417,0,0" VerticalAlignment="Top"  Width="54" Click="addBtn_Click"/>
+        <Button x:Name="addBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Add_btn}" HorizontalAlignment="Left" Margin="10,446,0,0" VerticalAlignment="Top"  Width="54" Click="addBtn_Click"/>
 
-        <Button x:Name="editBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Left" Margin="69,417,0,0" VerticalAlignment="Top"  Width="54" Click="editBtn_Click"/>
+        <Button x:Name="editBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Left" Margin="69,446,0,0" VerticalAlignment="Top"  Width="54" Click="editBtn_Click"/>
 
-        <Button x:Name="removeBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Delete_btn}"  HorizontalAlignment="Left"  Margin="128,417,0,0" VerticalAlignment="Top" Width="54" Click="removeBtn_Click" />
+        <Button x:Name="removeBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Delete_btn}"  HorizontalAlignment="Left"  Margin="128,446,0,0" VerticalAlignment="Top" Width="54" Click="removeBtn_Click" />
 
         <Button x:Name="saveBtn"  Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Save_btn}"  Visibility="Hidden" HorizontalAlignment="Left" Margin="187,417,0,0" VerticalAlignment="Top" Width="54" Click="saveBtn_Click"/>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -24,23 +25,56 @@ namespace Teretana
         bool IsCheckedFromCode = false;
         CultureInfo oldCultureInfo = Thread.CurrentThread.CurrentCulture;
 
-        public static Style btnStyle;
-        public SettingsWindow()
+
+        public static volatile Style btnStyle;
+        public static string lang;
+
+        private long id;
+        private string username;
+        private bool isAdmin;
+        public SettingsWindow(long id, string username, bool isAdmin)
         {
+            this.isAdmin = isAdmin;
+            this.username = username;
+            this.id = id;
             InitializeComponent();
             SetBtnStyles();
+            CheckLanguageRadioButton();
+        }
+        private void CheckLanguageRadioButton()
+        {
+            MySqlConnection conn = new MySqlConnection(Config.dbConfigString);
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = $"select jezik, stil from podesavanja where zaposleni_idOsoba='{id}'";
+            MySqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
 
-            oldCultureInfo = Thread.CurrentThread.CurrentCulture;
-            string language = oldCultureInfo.Name;
+            string language = reader.GetString(0);
+            string style = reader.GetString(1);
             if (language.Contains("en"))
             {
+                lang = "en";
                 IsCheckedFromCode = true;
                 englishRB.IsChecked = true;
             }
             else
             {
-                IsCheckedFromCode=true;
+                lang = "sr";
+                IsCheckedFromCode = true;
                 serbianRB.IsChecked = true;
+            }
+            if (style.Equals("#49D191"))
+            {
+                greenRB.IsChecked = true;
+            }
+            else if (style.Equals("#ADD8E6"))
+            {
+                blueRB.IsChecked = true;
+            }
+            else
+            {
+                orangeRB.IsChecked = true;
             }
         }
         private void SetBtnStyles()
@@ -52,6 +86,7 @@ namespace Teretana
         {
             if ((sender as RadioButton).IsLoaded)
             {
+                lang = "sr";
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("sr");
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("sr");
                 IsCheckedFromCode = false;
@@ -59,19 +94,29 @@ namespace Teretana
         }
         private void englishRB_Checked(object sender, RoutedEventArgs e)
         {
-            
+
             if ((sender as RadioButton).IsLoaded)
             {
+                lang = "en";
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
                 IsCheckedFromCode = false;
-                
+
             }
         }
 
         private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
-            new LoginWindow().Show();
+            SaveStyle(username);
+            if (isAdmin)
+            {
+
+                new AdminWindow(id, username).Show();
+            }
+            else
+            {
+                new EmployeeWindow(id, username).Show();
+            }
             Close();
         }
 
@@ -90,7 +135,7 @@ namespace Teretana
             Setter background = (Setter)SettingsWindow.btnStyle.Setters[1];
             background.Value = (SolidColorBrush)new BrushConverter().ConvertFrom("#49D191");
         }
-        
+
         private void blueRB_Checked(object sender, RoutedEventArgs e)
         {
             LoadBtnStyle();
@@ -99,15 +144,56 @@ namespace Teretana
         }
         private void orangeRB_Checked(object sender, RoutedEventArgs e)
         {
+            Style btnOld = btnStyle;
             LoadBtnStyle();
             Setter background = (Setter)SettingsWindow.btnStyle.Setters[1];
             background.Value = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFA500");
+            Style bnt = btnStyle;
         }
-        public void LoadBtnStyle()
+        public static void LoadBtnStyle()
         {
             ResourceDictionary resourceDictionary = new ResourceDictionary();
             resourceDictionary.Source = new Uri("/Styles.xaml", UriKind.RelativeOrAbsolute);
             SettingsWindow.btnStyle = (Style)resourceDictionary["GreenBtnStyle"];
+        }
+        private void SaveStyle(string username)
+        {
+            MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
+            long id = LoginWindow.GetUserId(username);
+            string colorhex;
+            if (blueRB.IsChecked == true)
+            {
+                colorhex = "#ADD8E6";
+            }
+            else if (orangeRB.IsChecked == true)
+            {
+                colorhex = "#FFA500";
+            }
+            else
+            {
+                colorhex = "#49D191";
+            }
+            string querry = $"insert into podesavanja (zaposleni_idosoba, stil, jezik) values('{id}','{colorhex}','{SettingsWindow.lang}')" +
+                $" on duplicate key update `zaposleni_idosoba`='{id}', `stil`='{colorhex}', `jezik`='{SettingsWindow.lang}'";
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            cmd.ExecuteNonQuery();
+            teretanaDB.Close();
+        }
+        public static void SetDefaultStyle(string username)
+        {
+            MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
+            long id = LoginWindow.GetUserId(username);
+            string colorhex = "#49D191";
+            string lang = "en";
+            string querry = $"insert into podesavanja (zaposleni_idosoba, stil, jezik) values('{id}','{colorhex}','{lang}')" +
+                $" on duplicate key update `zaposleni_idosoba`='{id}', `stil`='{colorhex}', `jezik`='{lang}'";
+            teretanaDB.Open();
+            MySqlCommand cmd = teretanaDB.CreateCommand();
+            cmd.CommandText = querry;
+            cmd.ExecuteNonQuery();
+            teretanaDB.Close();
         }
     }
 }

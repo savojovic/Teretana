@@ -11,13 +11,25 @@ namespace Teretana
     public partial class EmployeeWindow : Window
     {
         MySqlConnection teretanaDB = new MySqlConnection(Config.dbConfigString);
-        public EmployeeWindow()
+        private long id;
+        private string username;
+        public EmployeeWindow(long id, string username)
         {
+            this.id = id;  
+            this.username = username;
+            AdminWindow.LoadUserStyle(username);
             InitializeComponent();
             LoadMembers();
             SetElementsLock(false);
             SetBtnStyles();
         }
+        private void settingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            bool isAdmin = false;
+            new SettingsWindow(id,username, isAdmin).Show();
+            Close();
+        }
+
         private void SetBtnStyles()
         {
             addBtn.Style = SettingsWindow.btnStyle;
@@ -31,6 +43,7 @@ namespace Teretana
             startTrainingBtn.Style = SettingsWindow.btnStyle;
             stopTrainingBtn.Style = SettingsWindow.btnStyle;
             avatarBtn.Style = SettingsWindow.btnStyle;
+            settingsBtn.Style = SettingsWindow.btnStyle;
         }
         private void SetElementsLock(bool isUnLocked)
         {
@@ -224,7 +237,7 @@ namespace Teretana
                     MessageBox.Show(Teretana.Resources.Resources.Insert_new_member_err);
                 }
                 long newMemberId = cmd.LastInsertedId;
-                string querry2 = $"insert into clan (clan_idosoba,brojdolazaka) values ('{newMemberId}', '{0}') ON DUPLICATE KEY UPDATE " +
+                string querry2 = $"insert into clan (clan_idosoba) values ('{newMemberId}') ON DUPLICATE KEY UPDATE " +
                     $"`clan_idosoba`='{newMemberId}'";
                 cmd.CommandText = querry2;
                 cmd.ExecuteNonQuery();
@@ -232,6 +245,7 @@ namespace Teretana
             }
             catch (MySqlException ex)
             {
+                MessageBox.Show(ex.Message);
                 if (ex.Message.Contains("Cannot add or update a child row: a foreign key constraint fails"))
                 {
                     MessageBox.Show(Teretana.Resources.Resources.Insert_new_member_err);
