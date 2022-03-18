@@ -16,13 +16,17 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="43*"/>
+            <ColumnDefinition Width="157*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/assets/background.png"/>
         </Grid.Background>
-        <Button x:Name="settingsBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="943,10,0,0" VerticalAlignment="Top" Click="settingsBtn_Click">
+        <Button x:Name="settingsBtn" Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Click="settingsBtn_Click" Height="25" Width="31" Grid.Column="1">
             <Image Source="assets/settings.png" Height="19" Width="25"/>
         </Button>
-        <ListView BorderBrush="Black" BorderThickness="2" x:Name="membersListView" Margin="10,78,790,78" SelectionChanged="membersListBox_SelectionChanged">
+        <ListView BorderBrush="Black" BorderThickness="2" x:Name="membersListView" Margin="0,78,0,78" VerticalAlignment="Stretch" HorizontalAlignment="Center" SelectionChanged="membersListBox_SelectionChanged" MinWidth="190">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Id"  DisplayMemberBinding="{Binding Id}"/>
@@ -32,11 +36,11 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <GroupBox BorderBrush="Black" BorderThickness="2" Header="{x:Static rs:Resources.Member_header}" Margin="215,71,10,78">
+        <GroupBox BorderBrush="Black" BorderThickness="2" Header="{x:Static rs:Resources.Member_header}" Margin="1,71,10,78" Grid.Column="1">
 
-            <Grid Margin="12,0,-12,0">
+            <Grid Margin="0,0,0,0">
 
-                <GroupBox BorderBrush="Black" BorderThickness="2" Header="{x:Static rs:Resources.Info_header}" Margin="0,177,435,5">
+                <GroupBox VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="2" Header="{x:Static rs:Resources.Info_header}" Margin="30,170,0,10" MinWidth="300">
                     <Grid Margin="0,30,0,-5" Height="220">
                         <Label Content="{x:Static rs:Resources.Name_lbl}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
                         <TextBox HorizontalAlignment="Left" Margin="116,1,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="nameTextBox"/>
@@ -52,7 +56,7 @@
                         <TextBox HorizontalAlignment="Left" Margin="116,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="24" x:Name="emailTextBox"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox BorderBrush="Black" BorderThickness="2" Header="{x:Static rs:Resources.Trainings_header}" Margin="382,177,15,5">
+                <GroupBox BorderBrush="Black" VerticalAlignment="Top" HorizontalAlignment="Left" BorderThickness="2" Header="{x:Static rs:Resources.Trainings_header}" Margin="380,187,15,0" MinWidth="366">
                     <Grid Height="237" >
                         <ListView  x:Name="trainingsListView" Margin="0,0,0,39">
                             <ListView.View>
@@ -68,8 +72,8 @@
                         <Label Content="{x:Static rs:Resources.Start_lbl}" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top"/>
                     </Grid>
                 </GroupBox>
-                <GroupBox BorderBrush="Black" BorderThickness="2" Header="{x:Static rs:Resources.Membership_header}" Margin="382,6,15,285">
-                    <Grid Margin="0,0,8,0">
+                <GroupBox BorderBrush="Black" BorderThickness="2" Header="{x:Static rs:Resources.Membership_header}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="380,10,20,0">
+                    <Grid Margin="0,0,0,0">
                         <Label Content="{x:Static rs:Resources.Paid_lbl}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,18,0,0"/>
                         <Label Content="{x:Static rs:Resources.Valid_lbl}" HorizontalAlignment="Left" Margin="17,44,0,0" VerticalAlignment="Top"/>
                         <Label Content="{x:Static rs:Resources.Days_lbl}" HorizontalAlignment="Left" Margin="17,74,0,0" VerticalAlignment="Top"/>
@@ -78,8 +82,8 @@
                         <Label HorizontalAlignment="Left" Margin="104,44,0,0" VerticalAlignment="Top" x:Name="validUntilLbl"/>
                         <Label HorizontalAlignment="Left" Margin="104,74,0,0" VerticalAlignment="Top" x:Name="daysLeftLbl"/>
 
-                        <GroupBox Margin="237,10,0,19">
-                            <Grid Height="105" >
+                        <GroupBox VerticalAlignment="Top" HorizontalAlignment="Right" Margin="285,10,0,19">
+                            <Grid MinHeight="105" >
                                 <Button Style="{StaticResource GreenBtnStyle}"  x:Name="newMembershipBtn" Content="{x:Static rs:Resources.New_btn}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="54" Margin="0,10,0,0" Click="newMembershipsBtn_Click"/>
                                 <Button Style="{StaticResource GreenBtnStyle}" x:Name="extendMembershipBtn" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="54" Margin="0,37,0,0" Click="newMembershipsBtn_Click"/>
                                 <Button Style="{StaticResource GreenBtnStyle}" x:Name="revokeBtn" Content="{x:Static rs:Resources.Revoke_btn}" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="54" Margin="0,64,0,0" RenderTransformOrigin="1.037,0.561" Click="newMembershipsBtn_Click"/>
@@ -98,16 +102,16 @@
             </Grid>
 
         </GroupBox>
-        <Label Content="{x:Static rs:Resources.Members_lbl}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
-        <Button Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Add_btn}" x:Name="addBtn" HorizontalAlignment="Left" Margin="215,46,0,0" VerticalAlignment="Top" Width="54" Click="Add_Button_Click"/>
+        <Label Content="{x:Static rs:Resources.Members_lbl}" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top" Height="26" Width="60"/>
+        <Button Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Add_btn}" x:Name="addBtn" HorizontalAlignment="Left" Margin="1,46,0,0" VerticalAlignment="Top" Width="54" Click="Add_Button_Click" Height="22" Grid.Column="1"/>
 
-        <Button Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Left" Margin="274,46,0,0" VerticalAlignment="Top" Width="54" Click="EditButton_Click" x:Name="editBtn"/>
+        <Button Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Edit_btn}" HorizontalAlignment="Left" Margin="60,46,0,0" VerticalAlignment="Top" Width="54" Click="EditButton_Click" x:Name="editBtn" Height="22" Grid.Column="1"/>
 
-        <Button x:Name="deleteBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Delete_btn}" HorizontalAlignment="Left" Margin="333,46,0,0" VerticalAlignment="Top" Width="54" Click="Delete_Button_Click"/>
+        <Button x:Name="deleteBtn" Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Delete_btn}" HorizontalAlignment="Left" Margin="119,46,0,0" VerticalAlignment="Top" Width="54" Click="Delete_Button_Click" Height="22" Grid.Column="1"/>
 
-        <Button x:Name="logoutBtn" Content="{x:Static rs:Resources.Logout_btn}"  Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Left" Margin="920,46,0,0" VerticalAlignment="Top" Width="54" Click="Button_Click" Height="25"/>
+        <Button x:Name="logoutBtn" Content="{x:Static rs:Resources.Logout_btn}"  Style="{StaticResource GreenBtnStyle}" HorizontalAlignment="Right" Margin="0,40,10,0" VerticalAlignment="Top" Width="54" Click="Button_Click" Height="25" Grid.Column="1"/>
 
-        <Button  Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Save_btn}" HorizontalAlignment="Left" Margin="392,46,0,0" VerticalAlignment="Top" Width="54" Height="22" x:Name="saveBtn" Click="saveBtn_Click"/>
+        <Button  Style="{StaticResource GreenBtnStyle}" Content="{x:Static rs:Resources.Save_btn}" HorizontalAlignment="Left" Margin="178,46,0,0" VerticalAlignment="Top" Width="54" Height="22" x:Name="saveBtn" Click="saveBtn_Click" Grid.Column="1"/>
 
     </Grid>
 </Window>

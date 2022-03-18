@@ -136,7 +136,7 @@
     <value>Orange</value>
   </data>
   <data name="Continue_prompt" xml:space="preserve">
-    <value>Da li želite da nastavite?  </value>
+    <value>Do you want to continue.</value>
   </data>
   <data name="Contract_duration_lbl" xml:space="preserve">
     <value>Contract duration</value>
@@ -175,7 +175,7 @@
     <value>Employment info</value>
   </data>
   <data name="Existing_membership" xml:space="preserve">
-    <value>Član već ima članarinu.</value>
+    <value>Member already has a membership.</value>
   </data>
   <data name="From_header" xml:space="preserve">
     <value>From</value>

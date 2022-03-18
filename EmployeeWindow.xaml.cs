@@ -22,6 +22,8 @@ namespace Teretana
             LoadMembers();
             SetElementsLock(false);
             SetBtnStyles();
+            citiesComboBox.ItemsSource = EmployeeWindow.GetAllCities();
+
         }
         private void settingsBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -29,7 +31,6 @@ namespace Teretana
             new SettingsWindow(id,username, isAdmin).Show();
             Close();
         }
-
         private void SetBtnStyles()
         {
             addBtn.Style = SettingsWindow.btnStyle;
@@ -430,6 +431,14 @@ namespace Teretana
                 case "REVOKE":
                     RevokeMembership();
                     break;
+            }
+            try
+            {
+                SetMemberShip(((BasicMemberInfo)(membersListView).SelectedItem).Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Teretana.Resources.Resources.Select_member);
             }
         }
         private void RevokeMembership()
